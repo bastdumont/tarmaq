@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carte Mentale Tarmaq - Navigation Gauche à Droite</title>
     <style>
+        :root {
+          --bg: #F7F8FB;
+          --ink: #1F2937;
+          --muted: #6B7280;
+          --primary: #6B46C1;
+          --primary-200: #C4B5FD;
+          --primary-100: #EDE9FE;
+          --secondary: #2563EB;
+          --secondary-100: #DBEAFE;
+          --accent: #10B981;
+          --accent-100: #D1FAE5;
+          --surface: #FFFFFF;
+          --shadow-sm: 0 2px 8px rgba(0,0,0,.08);
+          --shadow-md: 0 8px 24px rgba(0,0,0,.12);
+        }
+
+        html, body { background: var(--bg); color: var(--ink); }
+
+        .hidden { display: none !important; }
+
+        .selected { outline: 3px solid var(--secondary); outline-offset: 2px; }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,10 +34,12 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            background: var(--bg);
             min-height: 100vh;
             overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
 
         .mindmap-container {
@@ -34,6 +58,7 @@
             left: 50%;
             transform: translate(-25%, -50%);
             transition: transform 0.3s ease;
+            will-change: transform;
         }
 
         .central-node {
@@ -43,8 +68,9 @@
             transform: translateY(-50%);
             width: 180px;
             height: 80px;
-            background: linear-gradient(135deg, #6b46c1 0%, #a78bfa 100%);
+            background: var(--primary);
             border-radius: 15px;
+            border: 1px solid rgba(255,255,255,.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -70,7 +96,7 @@
 
         .node {
             position: absolute;
-            background: linear-gradient(135deg, #4299e1 0%, #90cdf4 100%);
+            background: var(--secondary);
             border-radius: 12px;
             padding: 15px 25px;
             color: white;
@@ -78,7 +104,7 @@
             font-size: 13px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
+            box-shadow: var(--shadow-sm);
             min-width: 220px;
             text-align: left;
             user-select: none;
@@ -90,7 +116,7 @@
 
         .sub-node {
             position: absolute;
-            background: linear-gradient(135deg, #48bb78 0%, #9ae6b4 100%);
+            background: var(--accent);
             border-radius: 10px;
             padding: 12px 20px;
             color: white;
@@ -98,7 +124,7 @@
             font-size: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(72, 187, 120, 0.3);
+            box-shadow: var(--shadow-sm);
             min-width: 180px;
             text-align: left;
             user-select: none;
@@ -111,15 +137,15 @@
 
         .detail-node {
             position: absolute;
-            background: linear-gradient(135deg, #9f7aea 0%, #d6bcfa 100%);
+            background: var(--primary-200);
             border-radius: 8px;
             padding: 10px 15px;
-            color: white;
+            color: #2D165A;
             font-weight: 500;
             font-size: 11px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(159, 122, 234, 0.3);
+            box-shadow: var(--shadow-sm);
             min-width: 160px;
             text-align: left;
             user-select: none;
@@ -155,8 +181,8 @@
         }
 
         .node:hover, .sub-node:hover, .detail-node:hover {
-            transform: translateY(-50%) scale(1.05);
-            z-index: 10;
+            transform: translateY(-50%) scale(1.03);
+            box-shadow: var(--shadow-md);
         }
 
         .connection {
@@ -186,8 +212,8 @@
         }
 
         .control-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0,0,0,.06);
             border-radius: 8px;
             padding: 12px 16px;
             cursor: pointer;
@@ -195,6 +221,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             font-size: 12px;
+            backdrop-filter: saturate(180%) blur(8px);
         }
 
         .control-btn:hover {
@@ -213,28 +240,29 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             z-index: 200;
             font-size: 12px;
-            color: #666;
+            color: var(--muted);
+            border: 1px solid rgba(0,0,0,.06);
+            backdrop-filter: saturate(180%) blur(8px);
         }
+        .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        .breadcrumb a:hover { text-decoration: underline; }
 
         .info-panel {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 20px;
-            max-width: 350px;
-            max-height: 300px;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transform: translateY(100%);
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 360px;
+            background: var(--surface);
+            border-left: 1px solid rgba(0,0,0,.06);
+            box-shadow: var(--shadow-md);
+            transform: translateX(100%);
             transition: transform 0.3s ease;
             z-index: 200;
+            padding: 24px 20px 28px;
+            overflow-y: auto;
         }
-
-        .info-panel.active {
-            transform: translateY(0);
-        }
+        .info-panel.active { transform: translateX(0); }
 
         .info-panel h3 {
             color: #6b46c1;
@@ -290,6 +318,22 @@
             background: white;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
+        .search-results {
+          position: absolute;
+          top: 42px;
+          left: 0;
+          width: 320px;
+          max-height: 280px;
+          overflow-y: auto;
+          background: var(--surface);
+          border-radius: 12px;
+          box-shadow: var(--shadow-md);
+          border: 1px solid rgba(0,0,0,.06);
+          padding: 6px 6px;
+        }
+        .search-results li { list-style: none; padding: 10px 12px; border-radius: 8px; cursor: pointer; }
+        .search-results li:hover { background: var(--secondary-100); }
+        .search-results .match-path { display: block; font-size: 11px; color: var(--muted); margin-top: 4px; }
 
         /* Positionnement des branches principales verticalement */
         .branch-1 { top: calc(50% - 420px); }
@@ -332,6 +376,7 @@
 <body>
     <div class="mindmap-container" id="mindmapContainer">
         <div class="mindmap" id="mindmap">
+            <svg id="wires" width="4000" height="3000" style="position:absolute; inset:0; pointer-events:none;"></svg>
             <!-- Nœud central -->
             <div class="central-node" id="centralNode">
                 Projet Tarmaq
@@ -450,6 +495,7 @@
 
     <div class="search-container">
         <input type="text" class="search-input" placeholder="🔍 Rechercher dans le projet..." id="searchInput">
+        <ul id="searchResults" class="search-results hidden"></ul>
     </div>
 
     <div class="breadcrumb" id="breadcrumb">
@@ -463,6 +509,7 @@
         <button class="control-btn" onclick="collapseAll()">📁 Tout Fermer</button>
         <button class="control-btn" onclick="expandAll()">📂 Tout Ouvrir</button>
         <button class="control-btn" onclick="toggleInfo()">ℹ️ Info</button>
+        <button class="control-btn" onclick="closeInfo()">❌ Fermer Info</button>
     </div>
 
     <div class="info-panel" id="infoPanel">
@@ -678,6 +725,17 @@
             }
         };
 
+        // Auto-register missing sections from DOM nodes
+        function bootstrapMissingSections() {
+          document.querySelectorAll('[data-section][data-level="1"]').forEach(n => {
+            const k = n.getAttribute('data-section');
+            const titleText = n.querySelector('span')?.textContent?.trim() || k;
+            if (!projectData[k]) {
+              projectData[k] = { title: titleText, info: "Section à compléter", children: {} };
+            }
+          });
+        }
+
         // Variables globales
         let scale = 1;
         let isDragging = false;
@@ -691,30 +749,72 @@
         const breadcrumb = document.getElementById('breadcrumb');
         const infoPanel = document.getElementById('infoPanel');
         const infoPanelContent = document.getElementById('infoPanelContent');
+        const wires = document.getElementById('wires');
+        const searchResultsEl = document.getElementById('searchResults');
+
+        function cubicPath(x1, y1, x2, y2) {
+          const dx = Math.max(60, (x2 - x1) * 0.4);
+          return `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
+        }
+
+        function drawWireAbs(x1, y1, x2, y2) {
+          const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+          p.setAttribute('d', cubicPath(x1, y1, x2, y2));
+          p.setAttribute('fill', 'none');
+          p.setAttribute('stroke', 'url(#wireGradient)');
+          p.setAttribute('stroke-width', '2');
+          p.setAttribute('opacity', '0.8');
+          wires.appendChild(p);
+          return p;
+        }
+
+        // Define gradient once
+        const gradDef = document.createElementNS('http://www.w3.org/2000/svg','defs');
+        const lg = document.createElementNS('http://www.w3.org/2000/svg','linearGradient');
+        lg.setAttribute('id','wireGradient'); lg.setAttribute('x1','0%'); lg.setAttribute('x2','100%'); lg.setAttribute('y1','0%'); lg.setAttribute('y2','0%');
+        const s1 = document.createElementNS('http://www.w3.org/2000/svg','stop'); s1.setAttribute('offset','0%'); s1.setAttribute('stop-color', '#a78bfa');
+        const s2 = document.createElementNS('http://www.w3.org/2000/svg','stop'); s2.setAttribute('offset','100%'); s2.setAttribute('stop-color', '#60a5fa');
+        lg.appendChild(s1); lg.appendChild(s2); gradDef.appendChild(lg); wires.appendChild(gradDef);
+
+        function centerOnElement(el, padding = 80) {
+          const cRect = container.getBoundingClientRect();
+          const eRect = el.getBoundingClientRect();
+          const targetX = (cRect.width / 2) - (eRect.left + eRect.width / 2) + currentX;
+          const targetY = (cRect.height / 2) - (eRect.top + eRect.height / 2) + currentY;
+          currentX = targetX; currentY = targetY; updateTransform();
+        }
+
+        function updateBreadcrumb(path) {
+          if (!Array.isArray(path) || !path.length) { breadcrumb.textContent = 'Projet Tarmaq'; return; }
+          breadcrumb.innerHTML = ['<a href="#" data-bc-index="-1">Projet Tarmaq</a>']
+            .concat(path.map((p, i) => ` &gt; <a href="#" data-bc-index="${i}">${p}</a>`)).join('');
+        }
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', initializeMap);
 
         function initializeMap() {
+            bootstrapMissingSections();
             setupEventListeners();
             createMainConnections();
         }
 
         function createMainConnections() {
-            // Créer les connexions principales du centre vers chaque branche
-            const branches = document.querySelectorAll('.main-branch');
-            branches.forEach((branch, index) => {
-                const connection = document.createElement('div');
-                connection.className = 'connection';
-                
-                const branchTop = branch.style.top || branch.offsetTop;
-                const centerY = '50%';
-                
-                connection.style.left = '380px';
-                connection.style.top = branchTop;
-                connection.style.width = '70px';
-                
-                mindmap.appendChild(connection);
+            // Clear previous wires
+            while (wires.firstChild && wires.firstChild.nodeName !== 'defs') wires.removeChild(wires.firstChild);
+
+            const branches = document.querySelectorAll('.main-branch > .node');
+            branches.forEach((nodeEl) => {
+              const nRect = nodeEl.getBoundingClientRect();
+              const mRect = mindmap.getBoundingClientRect();
+              // Central node right edge
+              const centerEl = document.getElementById('centralNode');
+              const cRect = centerEl.getBoundingClientRect();
+              const x1 = (cRect.right - mRect.left);
+              const y1 = (cRect.top + cRect.height / 2 - mRect.top);
+              const x2 = (nRect.left - mRect.left);
+              const y2 = (nRect.top + nRect.height / 2 - mRect.top);
+              drawWireAbs(x1, y1, x2, y2);
             });
         }
 
@@ -741,6 +841,23 @@
 
             // Recherche
             document.getElementById('searchInput').addEventListener('input', handleSearch);
+
+            // Keyboard shortcuts
+            window.addEventListener('keydown', (e) => {
+              if (e.key === '+') { zoomIn(); }
+              else if (e.key === '-') { zoomOut(); }
+              else if (e.key === '0') { resetView(); }
+              else if (e.key === 'Escape') { collapseAll(); closeInfo(); }
+            });
+
+            // Breadcrumb clicks
+            breadcrumb.addEventListener('click', (e) => {
+              const a = e.target.closest('a[data-bc-index]');
+              if (!a) return;
+              e.preventDefault();
+              const idx = parseInt(a.getAttribute('data-bc-index'), 10);
+              if (idx === -1) { closeInfo(); resetView(); return; }
+            });
         }
 
         function handleExpand(e) {
@@ -792,14 +909,18 @@
             
             parentNode.appendChild(subNode);
 
-            // Créer la connexion
-            const connection = document.createElement('div');
-            connection.className = 'sub-connection';
-            connection.style.left = '220px';
-            connection.style.top = yOffset + 'px';
-            connection.style.width = (xDistance - 220) + 'px';
-            parentNode.appendChild(connection);
-            
+            // Draw SVG wire parent -> this subNode
+            requestAnimationFrame(() => {
+              const mRect = mindmap.getBoundingClientRect();
+              const pRect = parentNode.getBoundingClientRect();
+              const sRect = subNode.getBoundingClientRect();
+              const x1 = (pRect.right - mRect.left);
+              const y1 = (pRect.top + pRect.height/2 - mRect.top);
+              const x2 = (sRect.left - mRect.left);
+              const y2 = (sRect.top + sRect.height/2 - mRect.top);
+              drawWireAbs(x1, y1, x2, y2);
+            });
+
             // Animation d'apparition
             setTimeout(() => {
                 subNode.classList.add('fade-in');
@@ -858,13 +979,17 @@
                     detailNode.classList.add('fade-in');
                 }, index * 50);
 
-                // Connexion
-                const connection = document.createElement('div');
-                connection.className = 'sub-connection';
-                connection.style.left = '180px';
-                connection.style.top = (yOffset + (index * 40)) + 'px';
-                connection.style.width = '70px';
-                parentNode.appendChild(connection);
+                // Draw SVG wire for detail node
+                requestAnimationFrame(() => {
+                  const mRect = mindmap.getBoundingClientRect();
+                  const pRect = parentNode.getBoundingClientRect();
+                  const sRect = detailNode.getBoundingClientRect();
+                  const x1 = (pRect.right - mRect.left);
+                  const y1 = (pRect.top + pRect.height/2 - mRect.top);
+                  const x2 = (sRect.left - mRect.left);
+                  const y2 = (sRect.top + sRect.height/2 - mRect.top);
+                  drawWireAbs(x1, y1, x2, y2);
+                });
             });
         }
 
@@ -879,43 +1004,63 @@
                 element.style.transform += ' scale(0)';
                 setTimeout(() => element.remove(), 300);
             });
+            // Clear wires (except defs)
+            while (wires.firstChild && wires.firstChild.nodeName !== 'defs') wires.removeChild(wires.firstChild);
+            createMainConnections();
         }
 
         function showNodeInfo(e) {
             e.stopPropagation();
             const section = e.currentTarget.getAttribute('data-section');
-            const data = projectData[section];
-            
-            if (data) {
-                infoPanelContent.innerHTML = `
-                    <h3>${data.title}</h3>
-                    <p>${data.info}</p>
-                    ${data.children ? `<p><strong>Sous-sections:</strong> ${Object.keys(data.children).length}</p>` : ''}
-                `;
-                infoPanel.classList.add('active');
-            }
+            const titleText = e.currentTarget.querySelector('span')?.textContent?.trim();
+            const data = projectData[section] || { title: titleText || section, info: '' };
+            infoPanelContent.innerHTML = `
+              <h3>${data.title}</h3>
+              <p>${data.info || ''}</p>
+              ${data.children ? `<p><strong>Sous-sections:</strong> ${Array.isArray(data.children) ? data.children.length : Object.keys(data.children).length}</p>` : ''}
+            `;
+            infoPanel.classList.add('active');
+            // Update breadcrumb
+            updateBreadcrumb([data.title]);
+            // Visual selection
+            document.querySelectorAll('.selected').forEach(n => n.classList.remove('selected'));
+            e.currentTarget.classList.add('selected');
+            // Center view on node
+            centerOnElement(e.currentTarget);
         }
 
         function handleSearch(e) {
-            const query = e.target.value.toLowerCase();
-            if (!query) {
-                document.querySelectorAll('.node, .sub-node, .detail-node').forEach(node => {
-                    node.style.opacity = '1';
-                    node.classList.remove('highlight');
-                });
-                return;
-            }
+          const query = e.target.value.trim().toLowerCase();
+          const allNodes = Array.from(document.querySelectorAll('.node, .sub-node, .detail-node'));
+          // Reset visuals
+          allNodes.forEach(n => { n.style.opacity = '1'; n.classList.remove('highlight'); });
+          searchResultsEl.innerHTML = '';
+          if (!query) { searchResultsEl.classList.add('hidden'); return; }
 
-            document.querySelectorAll('.node, .sub-node, .detail-node').forEach(node => {
-                const text = node.textContent.toLowerCase();
-                if (text.includes(query)) {
-                    node.style.opacity = '1';
-                    node.classList.add('highlight');
-                } else {
-                    node.style.opacity = '0.3';
-                    node.classList.remove('highlight');
-                }
+          const results = [];
+          allNodes.forEach(n => {
+            const text = n.textContent.toLowerCase();
+            if (text.includes(query)) {
+              results.push(n);
+              n.classList.add('highlight');
+            }
+          });
+
+          // Populate dropdown (max 8)
+          results.slice(0,8).forEach(n => {
+            const li = document.createElement('li');
+            const label = n.textContent.trim();
+            li.innerHTML = `<div>${label}</div><span class="match-path">Aller à cet élément</span>`;
+            li.addEventListener('click', () => {
+              searchResultsEl.classList.add('hidden');
+              centerOnElement(n);
+              n.classList.add('selected');
+              n.classList.add('highlight');
+              n.scrollIntoView?.({ block: 'center', inline: 'center' });
             });
+            searchResultsEl.appendChild(li);
+          });
+          searchResultsEl.classList.toggle('hidden', results.length === 0);
         }
 
         // Fonctions de contrôle
@@ -948,6 +1093,9 @@
                 node.style.transform += ' scale(0)';
                 setTimeout(() => node.remove(), 300);
             });
+            // Clear wires (except defs)
+            while (wires.firstChild && wires.firstChild.nodeName !== 'defs') wires.removeChild(wires.firstChild);
+            createMainConnections();
         }
 
         function expandAll() {
@@ -995,7 +1143,10 @@
 
         function updateTransform() {
             mindmap.style.transform = `translate(calc(-25% + ${currentX}px), calc(-50% + ${currentY}px)) scale(${scale})`;
+            // Recompute wires after layout change
+            createMainConnections();
         }
+        function closeInfo() { infoPanel.classList.remove('active'); }
 
         // Fonctions tooltip
         function showTooltip(e) {
@@ -1020,3 +1171,9 @@
     </script>
 </body>
 </html>
+        document.getElementById('centralNode').addEventListener('click', (e) => {
+          centerOnElement(e.currentTarget);
+          infoPanelContent.innerHTML = `<h3>Projet Tarmaq</h3><p>Carte interactive du projet. Utilisez la recherche (⌘/Ctrl+F nativement ou le champ en haut) et les boutons pour naviguer.</p>`;
+          infoPanel.classList.add('active');
+          updateBreadcrumb(['Projet Tarmaq']);
+        });

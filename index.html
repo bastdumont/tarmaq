@@ -74,24 +74,47 @@
                 <img src="src/assets/logo.png" alt="tarmaq" class="w-8 h-8" />
                 <span class="text-xl font-bold text-ink-2">tarmaq</span>
               </div>
-              <button
-                id="menuBtn"
-                class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-              >
-                <svg
-                  class="w-6 h-6 text-ink-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              <div class="flex items-center gap-2">
+                <!-- View Switcher Button -->
+                <button
+                  id="viewSwitcher"
+                  class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-ink-2"
+                  title="Passer à la vue desktop"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  ></path>
-                </svg>
-              </button>
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Mobile Menu Button -->
+                <button
+                  id="menuBtn"
+                  class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <svg
+                    class="w-6 h-6 text-ink-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 6h16M4 12h16M4 18h16"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
             </div>
           </header>
 
@@ -534,34 +557,67 @@
 
             <div class="grid grid-cols-2 gap-4">
               <div
-                class="bg-white border border-stroke rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-shadow"
+                class="bg-white border border-stroke rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-shadow flex items-center justify-center"
               >
-                <div class="text-muted font-semibold">Ville de Genève</div>
+                <img
+                  src="src/assets/CCIG-Logo-300x144.png"
+                  alt="CCIG"
+                  class="max-w-full max-h-16 object-contain"
+                />
               </div>
               <div
-                class="bg-white border border-stroke rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-shadow"
+                class="bg-white border border-stroke rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-shadow flex items-center justify-center"
               >
-                <div class="text-muted font-semibold">Écoles & HES</div>
+                <img
+                  src="src/assets/rent.png"
+                  alt="RENT"
+                  class="max-w-full max-h-16 object-contain"
+                />
               </div>
               <div
-                class="bg-white border border-stroke rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-shadow"
+                class="bg-white border border-stroke rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-shadow flex items-center justify-center"
               >
-                <div class="text-muted font-semibold">PME/Startups</div>
+                <img
+                  src="src/assets/SDL-Logo (1).png"
+                  alt="SDL"
+                  class="max-w-full max-h-16 object-contain"
+                />
               </div>
               <div
-                class="bg-white border border-stroke rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-shadow"
+                class="bg-white border border-stroke rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-shadow flex items-center justify-center"
               >
-                <div class="text-muted font-semibold">Fondations</div>
+                <img
+                  src="src/assets/Untitled-1-300x300.jpg"
+                  alt="World Chambers Congress"
+                  class="max-w-full max-h-16 object-contain"
+                />
               </div>
               <div
-                class="bg-white border border-stroke rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-shadow"
+                class="bg-white border border-stroke rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-shadow flex items-center justify-center"
               >
-                <div class="text-muted font-semibold">Associations</div>
+                <img
+                  src="src/assets/Untitled-2 (1).jpg"
+                  alt="BiAlps"
+                  class="max-w-full max-h-16 object-contain"
+                />
               </div>
               <div
-                class="bg-white border border-stroke rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-shadow"
+                class="bg-white border border-stroke rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-shadow flex items-center justify-center"
               >
-                <div class="text-muted font-semibold">Incubateurs</div>
+                <img
+                  src="src/assets/bb-connect (1).png"
+                  alt="Building Bridges"
+                  class="max-w-full max-h-16 object-contain"
+                />
+              </div>
+              <div
+                class="bg-white border border-stroke rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-shadow flex items-center justify-center"
+              >
+                <img
+                  src="src/assets/balder-app.jpeg"
+                  alt="Balder App"
+                  class="max-w-full max-h-16 object-contain"
+                />
               </div>
             </div>
           </section>
@@ -652,7 +708,9 @@
       const menuBtn = document.getElementById('menuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
       const closeMenu = document.getElementById('closeMenu');
+      const viewSwitcher = document.getElementById('viewSwitcher');
 
+      // Mobile menu functionality
       menuBtn.addEventListener('click', () => {
         mobileMenu.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
@@ -676,6 +734,23 @@
           mobileMenu.classList.add('hidden');
           document.body.style.overflow = 'auto';
         });
+      });
+
+      // View switcher functionality
+      viewSwitcher.addEventListener('click', () => {
+        // Store current view preference
+        localStorage.setItem('tarmaq-view', 'desktop');
+        // Redirect to desktop version
+        window.location.href = 'tarmaq-desktop2.html';
+      });
+
+      // Check for saved view preference on page load
+      window.addEventListener('load', () => {
+        const savedView = localStorage.getItem('tarmaq-view');
+        if (savedView === 'desktop') {
+          // User prefers desktop view, show a subtle indicator
+          viewSwitcher.classList.add('ring-2', 'ring-brand/20');
+        }
       });
     </script>
   </body>
