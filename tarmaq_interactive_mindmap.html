@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte Mentale Tarmaq - Navigation Gauche à Droite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .mindmap-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            cursor: grab;
+            overflow: hidden;
+        }
+
+        .mindmap {
+            width: 4000px;
+            height: 3000px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-25%, -50%);
+            transition: transform 0.3s ease;
+        }
+
+        .central-node {
+            position: absolute;
+            top: 50%;
+            left: 200px;
+            transform: translateY(-50%);
+            width: 180px;
+            height: 80px;
+            background: linear-gradient(135deg, #6b46c1 0%, #a78bfa 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(107, 70, 193, 0.4);
+            z-index: 100;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .central-node:hover {
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 15px 40px rgba(107, 70, 193, 0.6);
+        }
+
+        .main-branch {
+            position: absolute;
+            top: 50%;
+            left: 450px;
+        }
+
+        .node {
+            position: absolute;
+            background: linear-gradient(135deg, #4299e1 0%, #90cdf4 100%);
+            border-radius: 12px;
+            padding: 15px 25px;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
+            min-width: 220px;
+            text-align: left;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .sub-node {
+            position: absolute;
+            background: linear-gradient(135deg, #48bb78 0%, #9ae6b4 100%);
+            border-radius: 10px;
+            padding: 12px 20px;
+            color: white;
+            font-weight: 500;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(72, 187, 120, 0.3);
+            min-width: 180px;
+            text-align: left;
+            user-select: none;
+            opacity: 0;
+            transform: translateY(-50%) scale(0);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .detail-node {
+            position: absolute;
+            background: linear-gradient(135deg, #9f7aea 0%, #d6bcfa 100%);
+            border-radius: 8px;
+            padding: 10px 15px;
+            color: white;
+            font-weight: 500;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(159, 122, 234, 0.3);
+            min-width: 160px;
+            text-align: left;
+            user-select: none;
+            opacity: 0;
+            transform: translateY(-50%) scale(0);
+        }
+
+        .expand-btn {
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .expand-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+
+        .expanded .expand-btn {
+            transform: rotate(45deg);
+        }
+
+        .node:hover, .sub-node:hover, .detail-node:hover {
+            transform: translateY(-50%) scale(1.05);
+            z-index: 10;
+        }
+
+        .connection {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(107, 70, 193, 0.6), rgba(66, 153, 225, 0.6));
+            z-index: 1;
+            transform: translateY(-1px);
+        }
+
+        .sub-connection {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(66, 153, 225, 0.6), rgba(72, 187, 120, 0.6));
+            z-index: 1;
+            transform: translateY(-1px);
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 200;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 12px;
+        }
+
+        .control-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .breadcrumb {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 10px 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 200;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .info-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 350px;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 200;
+        }
+
+        .info-panel.active {
+            transform: translateY(0);
+        }
+
+        .info-panel h3 {
+            color: #6b46c1;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .info-panel p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            pointer-events: none;
+            z-index: 300;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            max-width: 200px;
+        }
+
+        .tooltip.show {
+            opacity: 1;
+        }
+
+        .search-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+        }
+
+        .search-input {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            width: 300px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Positionnement des branches principales verticalement */
+        .branch-1 { top: calc(50% - 420px); }
+        .branch-2 { top: calc(50% - 360px); }
+        .branch-3 { top: calc(50% - 300px); }
+        .branch-4 { top: calc(50% - 240px); }
+        .branch-5 { top: calc(50% - 180px); }
+        .branch-6 { top: calc(50% - 120px); }
+        .branch-7 { top: calc(50% - 60px); }
+        .branch-8 { top: calc(50% + 0px); }
+        .branch-9 { top: calc(50% + 60px); }
+        .branch-10 { top: calc(50% + 120px); }
+        .branch-11 { top: calc(50% + 180px); }
+        .branch-12 { top: calc(50% + 240px); }
+        .branch-13 { top: calc(50% + 300px); }
+        .branch-14 { top: calc(50% + 360px); }
+        .branch-15 { top: calc(50% + 420px); }
+
+        .fade-in {
+            animation: fadeInScale 0.5s ease forwards;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: translateY(-50%) scale(0);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(-50%) scale(1);
+            }
+        }
+
+        .highlight {
+            box-shadow: 0 0 20px rgba(107, 70, 193, 0.8) !important;
+            transform: translateY(-50%) scale(1.1) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="mindmap-container" id="mindmapContainer">
+        <div class="mindmap" id="mindmap">
+            <!-- Nœud central -->
+            <div class="central-node" id="centralNode">
+                Projet Tarmaq
+            </div>
+
+            <!-- Connexion centrale -->
+            <div class="connection" style="left: 380px; top: 50%; width: 70px;"></div>
+
+            <!-- Branches principales -->
+            <div class="main-branch branch-1">
+                <div class="node" data-section="contexte" data-level="1">
+                    <span>Contexte & Problématique</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-2">
+                <div class="node" data-section="demande" data-level="1">
+                    <span>Demande de Soutien</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-3">
+                <div class="node" data-section="vision" data-level="1">
+                    <span>Vision & Valeur Ajoutée</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-4">
+                <div class="node" data-section="objectifs" data-level="1">
+                    <span>Objectifs du Projet</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-5">
+                <div class="node" data-section="activites" data-level="1">
+                    <span>Activités Prévues</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-6">
+                <div class="node" data-section="publics" data-level="1">
+                    <span>Publics Cibles</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-7">
+                <div class="node" data-section="retombees" data-level="1">
+                    <span>Retombées Attendues</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-8">
+                <div class="node" data-section="economique" data-level="1">
+                    <span>Modèle Économique</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-9">
+                <div class="node" data-section="budget" data-level="1">
+                    <span>Budgets Prévisionnels (3 ans)</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-10">
+                <div class="node" data-section="calendrier" data-level="1">
+                    <span>Calendrier Prévisionnel (2025-2026)</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-11">
+                <div class="node" data-section="indicateurs" data-level="1">
+                    <span>Indicateurs & Évaluation d'Impact</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-12">
+                <div class="node" data-section="risques" data-level="1">
+                    <span>Risques & Mesures</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-13">
+                <div class="node" data-section="gouvernance" data-level="1">
+                    <span>Gouvernance & Conformité</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-14">
+                <div class="node" data-section="communication" data-level="1">
+                    <span>Plan de Communication</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+
+            <div class="main-branch branch-15">
+                <div class="node" data-section="expansion" data-level="1">
+                    <span>Feuille de Route d'Expansion (2025-2030)</span>
+                    <button class="expand-btn">></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="🔍 Rechercher dans le projet..." id="searchInput">
+    </div>
+
+    <div class="breadcrumb" id="breadcrumb">
+        Projet Tarmaq
+    </div>
+
+    <div class="controls">
+        <button class="control-btn" onclick="resetView()">🏠 Centre</button>
+        <button class="control-btn" onclick="zoomIn()">🔍 Zoom +</button>
+        <button class="control-btn" onclick="zoomOut()">🔍 Zoom -</button>
+        <button class="control-btn" onclick="collapseAll()">📁 Tout Fermer</button>
+        <button class="control-btn" onclick="expandAll()">📂 Tout Ouvrir</button>
+        <button class="control-btn" onclick="toggleInfo()">ℹ️ Info</button>
+    </div>
+
+    <div class="info-panel" id="infoPanel">
+        <h3>Informations</h3>
+        <p id="infoPanelContent">Cliquez sur un élément pour voir les détails</p>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Configuration des données avec structure hiérarchique
+        const projectData = {
+            contexte: {
+                title: "Contexte & Problématique",
+                info: "Analyse du contexte marché et identification des défis majeurs de l'innovation collaborative",
+                children: {
+                    defis: {
+                        title: "Défis Contemporains",
+                        info: "Les 3 défis majeurs que Tarmaq résout",
+                        children: [
+                            { title: "Résistance Technologique", info: "70% organisations résistent aux nouvelles technologies" },
+                            { title: "Fragmentation Géographique", info: "73% des collaborations limitées par les frontières" },
+                            { title: "Silos de Connaissances", info: "67% des innovations restent confidentielles" }
+                        ]
+                    },
+                    conviction: {
+                        title: "Notre Conviction",
+                        info: "Les 3 piliers de notre vision d'avenir",
+                        children: [
+                            { title: "Tech-Forward", info: "Embrasser la technologie plutôt que la subir" },
+                            { title: "Global-Minded", info: "Penser global plutôt que local" },
+                            { title: "Knowledge-Sharing", info: "Partager pour mieux recevoir" }
+                        ]
+                    }
+                }
+            },
+            vision: {
+                title: "Vision & Valeur Ajoutée",
+                info: "Notre vision stratégique et proposition de valeur unique pour l'écosystème d'innovation",
+                children: {
+                    ecosysteme: {
+                        title: "Écosystème Physique et Digital",
+                        info: "Plateforme hybride alliant espaces physiques et outils numériques",
+                        children: [
+                            { title: "Innovation Labs", info: "Espaces de co-création équipés" },
+                            { title: "Plateforme Collaborative", info: "Outils digitaux avancés" },
+                            { title: "Réalité Mixte", info: "VR/AR pour collaboration immersive" }
+                        ]
+                    },
+                    apprentissage: {
+                        title: "Apprendre en Faisant",
+                        info: "Pédagogie active basée sur l'expérimentation et la pratique",
+                        children: [
+                            { title: "Learning by Doing", info: "Projets concrets et applicables" },
+                            { title: "Peer Learning", info: "Apprentissage collaboratif" },
+                            { title: "Mentorship", info: "Accompagnement expert" }
+                        ]
+                    },
+                    ia: {
+                        title: "IA Responsable à Portée de Main",
+                        info: "Intelligence artificielle éthique et accessible à tous",
+                        children: [
+                            { title: "AI Ethics", info: "Développement responsable" },
+                            { title: "Démocratisation", info: "Accès facilité aux outils IA" },
+                            { title: "Formation", info: "Éducation aux enjeux IA" }
+                        ]
+                    },
+                    ouverture: {
+                        title: "Ouverture & Mobilité",
+                        info: "Connexion globale et mobilité internationale des talents",
+                        children: [
+                            { title: "Réseau Global", info: "50K+ experts dans 100+ pays" },
+                            { title: "Mobilité Talent", info: "Programmes d'échange internationaux" },
+                            { title: "Cultural Bridge", info: "Pont entre écosystèmes" }
+                        ]
+                    },
+                    intergenerationnel: {
+                        title: "Lien Intergénérationnel",
+                        info: "Connexion entre générations pour transfert de savoirs",
+                        children: [
+                            { title: "Mentorship Senior", info: "Experts expérimentés" },
+                            { title: "Reverse Mentoring", info: "Jeunes talents tech" },
+                            { title: "Knowledge Transfer", info: "Transmission optimisée" }
+                        ]
+                    },
+                    ancrage: {
+                        title: "Ancrage Local",
+                        info: "Développement territorial et écosystème local",
+                        children: [
+                            { title: "Écosystème Régional", info: "Partenaires locaux" },
+                            { title: "Impact Territorial", info: "Création d'emplois locaux" },
+                            { title: "Innovation Locale", info: "Valorisation savoir-faire" }
+                        ]
+                    },
+                    catalyseur: {
+                        title: "Catalyseur d'Opportunités",
+                        info: "Générateur de synergies et d'opportunités business",
+                        children: [
+                            { title: "Business Matching", info: "Connexions stratégiques" },
+                            { title: "Innovation Pipeline", info: "Flux continu d'opportunités" },
+                            { title: "Value Creation", info: "Génération de valeur partagée" }
+                        ]
+                    }
+                }
+            },
+            objectifs: {
+                title: "Objectifs Stratégiques",
+                info: "Roadmap détaillée et objectifs mesurables sur 4 ans",
+                children: {
+                    year1: {
+                        title: "2025 - Foundation",
+                        info: "Construction des bases et validation concept",
+                        children: [
+                            { title: "MVP Plateforme", info: "1000 utilisateurs beta, 5 technos core" },
+                            { title: "Équipe Core", info: "25 personnes, expertises clés" },
+                            { title: "Premiers Revenus", info: "500K€ ARR" }
+                        ]
+                    },
+                    year2: {
+                        title: "2026 - Accélération",
+                        info: "Croissance rapide et expansion géographique",
+                        children: [
+                            { title: "10K Utilisateurs", info: "Croissance utilisateurs actifs" },
+                            { title: "Expansion International", info: "15 pays, localisation" },
+                            { title: "2,2M€ Revenus", info: "Croissance exponentielle" }
+                        ]
+                    },
+                    year3: {
+                        title: "2027 - Leadership",
+                        info: "Position de leader et profitabilité",
+                        children: [
+                            { title: "50K Utilisateurs", info: "30 pays, adoption massive" },
+                            { title: "100+ Partenaires", info: "Écosystème riche" },
+                            { title: "5,8M€ Revenus", info: "Rentabilité opérationnelle" }
+                        ]
+                    }
+                }
+            },
+            economique: {
+                title: "Modèle Économique",
+                info: "Architecture des revenus diversifiée et durable",
+                children: {
+                    subscriptions: {
+                        title: "Subscriptions SaaS (60%)",
+                        info: "Revenus récurrents de la plateforme",
+                        children: [
+                            { title: "Professional 99€/mois", info: "PME et consultants" },
+                            { title: "Enterprise 299€/mois", info: "Grandes entreprises" },
+                            { title: "Global 1000€+/mois", info: "Multinationales" }
+                        ]
+                    },
+                    services: {
+                        title: "Services & Consulting (25%)",
+                        info: "Services d'accompagnement et expertise",
+                        children: [
+                            { title: "Tech Audit", info: "Évaluation technologique" },
+                            { title: "Innovation Roadmap", info: "Stratégie personnalisée" },
+                            { title: "Implementation Support", info: "Accompagnement déploiement" }
+                        ]
+                    },
+                    education: {
+                        title: "Education & Training (10%)",
+                        info: "Formations et certifications",
+                        children: [
+                            { title: "Certifications Tech", info: "IA, Blockchain, VR/AR" },
+                            { title: "Corporate Training", info: "Formation entreprise" },
+                            { title: "Online Learning", info: "Modules e-learning" }
+                        ]
+                    },
+                    ventures: {
+                        title: "Ventures & Equity (5%)",
+                        info: "Investissement et co-création",
+                        children: [
+                            { title: "Equity Participation", info: "5-20% dans startups" },
+                            { title: "Success Fees", info: "Technology transfer" },
+                            { title: "Revenue Sharing", info: "Innovations commercialisées" }
+                        ]
+                    }
+                }
+            },
+            expansion: {
+                title: "Feuille de Route d'Expansion",
+                info: "Stratégie d'expansion internationale 2025-2030",
+                children: {
+                    phase1: {
+                        title: "Phase 1 - Europe (2025)",
+                        info: "Consolidation du marché européen",
+                        children: [
+                            { title: "France (Base)", info: "Marché domestique, 300K€ ARR" },
+                            { title: "DACH", info: "Allemagne, Autriche, Suisse" },
+                            { title: "UK & Nordics", info: "Préparation 2026" }
+                        ]
+                    },
+                    phase2: {
+                        title: "Phase 2 - Americas (2026)",
+                        info: "Conquête du marché nord-américain",
+                        children: [
+                            { title: "United States", info: "Silicon Valley + Boston" },
+                            { title: "Canada", info: "Toronto + Vancouver" },
+                            { title: "800K$ ARR Target", info: "Première année Americas" }
+                        ]
+                    },
+                    phase3: {
+                        title: "Phase 3 - APAC (2027-2028)",
+                        info: "Expansion Asie-Pacifique",
+                        children: [
+                            { title: "Singapore Hub", info: "QG régional" },
+                            { title: "Australia & NZ", info: "Marchés anglophones" },
+                            { title: "Japan Entry", info: "Marché stratégique 2028" }
+                        ]
+                    }
+                }
+            }
+        };
+
+        // Variables globales
+        let scale = 1;
+        let isDragging = false;
+        let startX, startY;
+        let currentX = 0, currentY = 0;
+        let expandedNodes = new Set();
+
+        const mindmap = document.getElementById('mindmap');
+        const container = document.getElementById('mindmapContainer');
+        const tooltip = document.getElementById('tooltip');
+        const breadcrumb = document.getElementById('breadcrumb');
+        const infoPanel = document.getElementById('infoPanel');
+        const infoPanelContent = document.getElementById('infoPanelContent');
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', initializeMap);
+
+        function initializeMap() {
+            setupEventListeners();
+            createMainConnections();
+        }
+
+        function createMainConnections() {
+            // Créer les connexions principales du centre vers chaque branche
+            const branches = document.querySelectorAll('.main-branch');
+            branches.forEach((branch, index) => {
+                const connection = document.createElement('div');
+                connection.className = 'connection';
+                
+                const branchTop = branch.style.top || branch.offsetTop;
+                const centerY = '50%';
+                
+                connection.style.left = '380px';
+                connection.style.top = branchTop;
+                connection.style.width = '70px';
+                
+                mindmap.appendChild(connection);
+            });
+        }
+
+        function setupEventListeners() {
+            // Navigation
+            container.addEventListener('mousedown', startDrag);
+            container.addEventListener('mousemove', drag);
+            container.addEventListener('mouseup', stopDrag);
+            container.addEventListener('mouseleave', stopDrag);
+            container.addEventListener('wheel', handleWheel);
+
+            // Expansion des nœuds
+            document.querySelectorAll('.expand-btn').forEach(btn => {
+                btn.addEventListener('click', handleExpand);
+            });
+
+            // Tooltips et info
+            document.querySelectorAll('[data-section]').forEach(element => {
+                element.addEventListener('mouseenter', showTooltip);
+                element.addEventListener('mouseleave', hideTooltip);
+                element.addEventListener('mousemove', moveTooltip);
+                element.addEventListener('click', showNodeInfo);
+            });
+
+            // Recherche
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+        }
+
+        function handleExpand(e) {
+            e.stopPropagation();
+            const node = e.target.closest('[data-section]');
+            const section = node.getAttribute('data-section');
+            const level = parseInt(node.getAttribute('data-level'));
+            
+            if (expandedNodes.has(section)) {
+                collapseNode(section, node);
+            } else {
+                expandNode(section, node, level);
+            }
+        }
+
+        function expandNode(section, parentNode, level) {
+            expandedNodes.add(section);
+            parentNode.classList.add('expanded');
+            
+            const data = projectData[section];
+            if (!data || !data.children) return;
+
+            const parentRect = parentNode.getBoundingClientRect();
+            const mindmapRect = mindmap.getBoundingClientRect();
+            
+            let yOffset = -((Object.keys(data.children).length - 1) * 30);
+            
+            Object.entries(data.children).forEach(([key, childData], index) => {
+                createSubNode(key, childData, parentNode, index, level + 1, section, yOffset + (index * 60));
+            });
+        }
+
+        function createSubNode(key, data, parentNode, index, level, parentSection, yOffset) {
+            const subNode = document.createElement('div');
+            subNode.className = level === 2 ? 'sub-node' : 'detail-node';
+            subNode.setAttribute('data-section', key);
+            subNode.setAttribute('data-level', level);
+            subNode.setAttribute('data-parent', parentSection);
+            
+            const xDistance = level === 2 ? 300 : 250;
+            
+            subNode.style.left = xDistance + 'px';
+            subNode.style.top = yOffset + 'px';
+            
+            subNode.innerHTML = `
+                <span>${data.title}</span>
+                ${data.children ? '<button class="expand-btn">></button>' : ''}
+            `;
+            
+            parentNode.appendChild(subNode);
+
+            // Créer la connexion
+            const connection = document.createElement('div');
+            connection.className = 'sub-connection';
+            connection.style.left = '220px';
+            connection.style.top = yOffset + 'px';
+            connection.style.width = (xDistance - 220) + 'px';
+            parentNode.appendChild(connection);
+            
+            // Animation d'apparition
+            setTimeout(() => {
+                subNode.classList.add('fade-in');
+            }, index * 100);
+            
+            // Event listeners
+            subNode.addEventListener('click', showNodeInfo);
+            subNode.addEventListener('mouseenter', showTooltip);
+            subNode.addEventListener('mouseleave', hideTooltip);
+            subNode.addEventListener('mousemove', moveTooltip);
+            
+            if (data.children) {
+                const expandBtn = subNode.querySelector('.expand-btn');
+                expandBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    expandSubNode(key, data, subNode, level + 1);
+                });
+            }
+        }
+
+        function expandSubNode(key, data, parentNode, level) {
+            if (!data.children || !Array.isArray(data.children)) return;
+            
+            const xDistance = 250;
+            let yOffset = -((data.children.length - 1) * 20);
+            
+            data.children.forEach((item, index) => {
+                const detailNode = document.createElement('div');
+                detailNode.className = 'detail-node';
+                detailNode.style.left = xDistance + 'px';
+                detailNode.style.top = (yOffset + (index * 40)) + 'px';
+                detailNode.innerHTML = `<span>${item.title}</span>`;
+                
+                // Event listeners pour les nœuds de détail
+                detailNode.addEventListener('click', () => {
+                    infoPanelContent.innerHTML = `
+                        <h3>${item.title}</h3>
+                        <p>${item.info}</p>
+                    `;
+                    infoPanel.classList.add('active');
+                });
+                
+                detailNode.addEventListener('mouseenter', (e) => {
+                    tooltip.textContent = item.info;
+                    tooltip.classList.add('show');
+                    moveTooltip(e);
+                });
+                
+                detailNode.addEventListener('mouseleave', hideTooltip);
+                detailNode.addEventListener('mousemove', moveTooltip);
+                
+                parentNode.appendChild(detailNode);
+                
+                // Animation
+                setTimeout(() => {
+                    detailNode.classList.add('fade-in');
+                }, index * 50);
+
+                // Connexion
+                const connection = document.createElement('div');
+                connection.className = 'sub-connection';
+                connection.style.left = '180px';
+                connection.style.top = (yOffset + (index * 40)) + 'px';
+                connection.style.width = '70px';
+                parentNode.appendChild(connection);
+            });
+        }
+
+        function collapseNode(section, node) {
+            expandedNodes.delete(section);
+            node.classList.remove('expanded');
+            
+            // Supprimer tous les sous-nœuds et connexions
+            const subElements = node.querySelectorAll('.sub-node, .detail-node, .sub-connection');
+            subElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform += ' scale(0)';
+                setTimeout(() => element.remove(), 300);
+            });
+        }
+
+        function showNodeInfo(e) {
+            e.stopPropagation();
+            const section = e.currentTarget.getAttribute('data-section');
+            const data = projectData[section];
+            
+            if (data) {
+                infoPanelContent.innerHTML = `
+                    <h3>${data.title}</h3>
+                    <p>${data.info}</p>
+                    ${data.children ? `<p><strong>Sous-sections:</strong> ${Object.keys(data.children).length}</p>` : ''}
+                `;
+                infoPanel.classList.add('active');
+            }
+        }
+
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase();
+            if (!query) {
+                document.querySelectorAll('.node, .sub-node, .detail-node').forEach(node => {
+                    node.style.opacity = '1';
+                    node.classList.remove('highlight');
+                });
+                return;
+            }
+
+            document.querySelectorAll('.node, .sub-node, .detail-node').forEach(node => {
+                const text = node.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    node.style.opacity = '1';
+                    node.classList.add('highlight');
+                } else {
+                    node.style.opacity = '0.3';
+                    node.classList.remove('highlight');
+                }
+            });
+        }
+
+        // Fonctions de contrôle
+        function resetView() {
+            scale = 1;
+            currentX = 0;
+            currentY = 0;
+            updateTransform();
+        }
+
+        function zoomIn() {
+            scale *= 1.2;
+            scale = Math.min(3, scale);
+            updateTransform();
+        }
+
+        function zoomOut() {
+            scale *= 0.8;
+            scale = Math.max(0.3, scale);
+            updateTransform();
+        }
+
+        function collapseAll() {
+            expandedNodes.clear();
+            document.querySelectorAll('.expanded').forEach(node => {
+                node.classList.remove('expanded');
+            });
+            document.querySelectorAll('.sub-node, .detail-node, .sub-connection').forEach(node => {
+                node.style.opacity = '0';
+                node.style.transform += ' scale(0)';
+                setTimeout(() => node.remove(), 300);
+            });
+        }
+
+        function expandAll() {
+            document.querySelectorAll('[data-section][data-level="1"]').forEach(node => {
+                const section = node.getAttribute('data-section');
+                if (!expandedNodes.has(section)) {
+                    expandNode(section, node, 1);
+                }
+            });
+        }
+
+        function toggleInfo() {
+            infoPanel.classList.toggle('active');
+        }
+
+        // Fonctions de navigation
+        function startDrag(e) {
+            if (e.target.closest('.node, .sub-node, .detail-node, .expand-btn')) return;
+            isDragging = true;
+            startX = e.clientX - currentX;
+            startY = e.clientY - currentY;
+            container.style.cursor = 'grabbing';
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            currentX = e.clientX - startX;
+            currentY = e.clientY - startY;
+            updateTransform();
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            container.style.cursor = 'grab';
+        }
+
+        function handleWheel(e) {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? 0.9 : 1.1;
+            scale *= delta;
+            scale = Math.max(0.3, Math.min(3, scale));
+            updateTransform();
+        }
+
+        function updateTransform() {
+            mindmap.style.transform = `translate(calc(-25% + ${currentX}px), calc(-50% + ${currentY}px)) scale(${scale})`;
+        }
+
+        // Fonctions tooltip
+        function showTooltip(e) {
+            const section = e.currentTarget.getAttribute('data-section');
+            const data = projectData[section];
+            if (data && data.info) {
+                tooltip.textContent = data.info;
+                tooltip.classList.add('show');
+                moveTooltip(e);
+            }
+        }
+
+        function hideTooltip() {
+            tooltip.classList.remove('show');
+        }
+
+        function moveTooltip(e) {
+            const rect = container.getBoundingClientRect();
+            tooltip.style.left = (e.clientX - rect.left + 10) + 'px';
+            tooltip.style.top = (e.clientY - rect.top - 10) + 'px';
+        }
+    </script>
+</body>
+</html>

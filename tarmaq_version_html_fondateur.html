@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>tarmaq — Projet détaillé (Dossier mécénat & partenaires)</title>
+    <meta
+      name="description"
+      content="Centre tarmaq à Genève : formation par la pratique, IA responsable, hackathons, mentorat, et partenariats — dossier mécénat & partenaires."
+    />
+    <style>
+      :root {
+        --brand: #d12c2c;
+        --text: #111;
+        --muted: #60646c;
+        --bg: #fff;
+        --surface: #f5f6f8;
+        --link: #0b57d0;
+        --radius: 14px;
+        --shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+        --line: #e9eef2;
+      }
+      html.dark {
+        --bg: #0f1115;
+        --text: #e8eaed;
+        --muted: #a6adbb;
+        --surface: #1a1f27;
+        --link: #8ab4f8;
+        --line: #2a3240;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 16px/1.6 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Helvetica, Arial, sans-serif;
+        scroll-behavior: smooth;
+      }
+      a {
+        color: var(--link);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      /* Top sticky bar */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: saturate(180%) blur(10px);
+        background: color-mix(in oklab, var(--bg) 88%, transparent);
+        border-bottom: 1px solid var(--line);
+      }
+      .topbar .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px 24px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .brand .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--brand);
+        display: inline-block;
+      }
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: #111;
+        font-weight: 600;
+        box-shadow: var(--shadow);
+        cursor: pointer;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      html.dark .btn {
+        background: #1f2630;
+        color: #e8eaed;
+        border-color: #2f3947;
+      }
+      .btn.primary {
+        background: var(--brand);
+        color: #fff;
+        border-color: transparent;
+      }
+
+      header.hero {
+        background-image: linear-gradient(
+            120deg,
+            var(--brand),
+            #f04b4b 60%,
+            #ffb3b3
+          ),
+          url('hero-background.png');
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        padding: 56px 0 48px;
+        position: relative;
+        overflow: hidden;
+      }
+      html.dark header.hero {
+        background-image: linear-gradient(120deg, #a31f1f, #c73535 60%, #e27a7a),
+          url('hero-background.png');
+        background-size: cover;
+        background-position: center;
+      }
+      header .inner {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 24px;
+        align-items: center;
+      }
+      .logo-wrap {
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.12);
+        padding: 10px;
+      }
+      .logo {
+        display: block;
+        width: 100%;
+        height: 100px;
+      }
+      h1 {
+        font-size: 42px;
+        line-height: 1.15;
+        margin: 0 0 6px;
+      }
+      .subtitle {
+        font-size: 18px;
+        opacity: 0.95;
+      }
+      .meta {
+        margin-top: 10px;
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      .shell {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 28px;
+        margin-top: -28px;
+      }
+      nav.toc {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 18px;
+        height: max-content;
+        position: sticky;
+        top: 78px;
+        border: 1px solid var(--line);
+      }
+      html.dark nav.toc {
+        background: #19202a;
+      }
+      nav.toc h3 {
+        margin: 0 0 8px;
+        font-size: 14px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      nav.toc a {
+        display: block;
+        padding: 6px 0;
+        color: var(--text);
+        border-left: 3px solid transparent;
+        padding-left: 10px;
+      }
+      nav.toc a:hover {
+        border-left-color: var(--brand);
+      }
+
+      main {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 28px;
+        border: 1px solid var(--line);
+      }
+      html.dark main {
+        background: #151b23;
+      }
+      section {
+        margin-bottom: 28px;
+      }
+      h2 {
+        font-size: 26px;
+        margin: 0 0 10px;
+        color: var(--brand);
+      }
+      h3 {
+        font-size: 18px;
+        margin: 18px 0 6px;
+        color: var(--text);
+      }
+      p {
+        margin: 8px 0 10px;
+      }
+      .note {
+        background: var(--surface);
+        padding: 10px 12px;
+        border-radius: 10px;
+        border-left: 4px solid var(--brand);
+      }
+      .founder {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--brand);
+        padding: 14px 14px;
+        border-radius: 12px;
+      }
+      .founder .title {
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        margin-bottom: 6px;
+        color: var(--brand);
+      }
+      ul,
+      ol {
+        margin: 8px 0 10px 22px;
+      }
+      li {
+        margin: 4px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0 14px;
+        font-size: 15px;
+      }
+      th,
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+      }
+      th {
+        background: var(--surface);
+        color: var(--text);
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      /* Media gallery */
+      .media-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      @media (min-width: 820px) {
+        .media-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      figure {
+        margin: 0;
+      }
+      figure img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+      figure figcaption {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+      .num {
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      /* Testimonials */
+      .testi {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .quote {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+      }
+      .quote strong {
+        color: var(--brand);
+      }
+      @media (min-width: 900px) {
+        .testi {
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+      }
+
+      /* Logos grid */
+      .logos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      @media (min-width: 820px) {
+        .logos {
+          grid-template-columns: repeat(6, 1fr);
+        }
+      }
+      .logoBox {
+        height: 54px;
+        border: 1px dashed var(--line);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        color: var(--muted);
+        background: var(--surface);
+      }
+
+      /* Contact form */
+      form.card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+        display: grid;
+        gap: 12px;
+      }
+      label {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--text);
+        font: inherit;
+      }
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      footer {
+        color: var(--muted);
+        font-size: 14px;
+        text-align: center;
+        padding: 30px 0 50px;
+      }
+      .badge {
+        display: inline-block;
+        background: var(--surface);
+        color: var(--text);
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        margin-left: 6px;
+      }
+
+      @media print {
+        nav.toc {
+          display: none;
+        }
+        .shell {
+          grid-template-columns: 1fr;
+        }
+        header.hero {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        section,
+        table {
+          page-break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header with logo and home link -->
+    <header
+      style="
+        background: #fff;
+        border-bottom: 1px solid var(--line);
+        padding: 16px 0;
+      "
+    >
+      <div
+        class="container"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        "
+      >
+        <a
+          href="index.html"
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+          "
+          onmouseover="this.style.background='var(--line)'; this.style.transform='translateY(-1px)'"
+          onmouseout="this.style.background='var(--surface)'; this.style.transform='translateY(0)'"
+        >
+          ← Retour à l'accueil
+        </a>
+      </div>
+    </header>
+
+    <!-- Sticky top bar with CTA + theme toggle -->
+    <div class="topbar" role="navigation" aria-label="Barre supérieure">
+      <div class="wrap container">
+        <div style="display: flex; align-items: center; gap: 16px">
+          <img
+            src="src/assets/logo.png"
+            alt="tarmaq logo"
+            style="height: 40px; width: auto"
+          />
+        </div>
+        <div class="actions">
+          <button
+            id="toggleTheme"
+            class="btn"
+            type="button"
+            aria-label="Basculer le thème"
+          >
+            🌗 Thème
+          </button>
+          <a class="btn primary" href="#contact">Devenir mécène</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="container inner">
+        <div class="logo-wrap">
+          <!-- Inline SVG logo to keep the file portable -->
+          <svg
+            class="logo"
+            viewBox="0 0 360 120"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="tarmaq logo"
+          >
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#fff" stop-opacity=".15" />
+                <stop offset="1" stop-color="#fff" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <rect rx="16" ry="16" width="360" height="120" fill="#FFFFFF22" />
+            <g transform="translate(18,78)">
+              <text
+                x="0"
+                y="0"
+                font-family="Inter,Arial,sans-serif"
+                font-size="64"
+                font-weight="700"
+                fill="#fff"
+              >
+                tarmaq
+              </text>
+            </g>
+            <rect rx="16" ry="16" width="360" height="120" fill="url(#g)" />
+          </svg>
+        </div>
+        <div>
+          <h1>tarmaq — Projet détaillé</h1>
+          <div class="subtitle">
+            Association Perspectives Jeunesse — Dossier mécénat &amp;
+            partenaires
+          </div>
+          <div class="meta">Version HTML — août 2025</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container shell">
+      <nav class="toc">
+        <h3>Sommaire</h3>
+        <a href="#resume">1) Résumé exécutif</a>
+        <a href="#contexte">2) Contexte &amp; problématique</a>
+        <a href="#vision">3) Vision &amp; valeur ajoutée</a>
+        <a href="#objectifs">4) Objectifs</a>
+        <a href="#publics">5) Publics cibles</a>
+        <a href="#offre">6) Offre de programmes</a>
+        <a href="#dispositif">7) Dispositif opérationnel</a>
+        <a href="#modele">8) Modèle économique</a>
+        <a href="#budget">9) Budget &amp; financement</a>
+        <a href="#calendrier">10) Calendrier</a>
+        <a href="#indicateurs">11) Indicateurs &amp; impact</a>
+        <a href="#risques">12) Risques &amp; mesures</a>
+        <a href="#gouvernance">13) Gouvernance &amp; conformité</a>
+        <a href="#com">14) Communication</a>
+        <a href="#expansion">15) Expansion</a>
+        <a href="#partenaires">16) Packs partenaires</a>
+        <a href="#comparatif">17) Budget synthétique</a>
+        <a href="#conclusion">18) Conclusion</a>
+        <a href="#temoignages">Témoignages</a>
+        <a href="#logos">Logos partenaires</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <main>
+        <section id="resume">
+          <h2>1) Résumé exécutif</h2>
+          <p>
+            <strong>tarmaq</strong> (ex‑Tarmak) est un lieu physique, une
+            plateforme numérique et un écosystème d’opportunités à Genève qui
+            accélère l’accès des 15–25 ans aux compétences numériques, à l’IA,
+            aux projets concrets, au voyages et aux réseaux professionnels. Le
+            centre associe <strong>formation par la pratique</strong>,
+            <strong>coworking solidaire</strong>,
+            <strong>ateliers &amp; hackathons</strong>,
+            <strong>mentorat</strong>, et un
+            <strong>serveur IA local et sécurisé</strong> pour expérimenter sans
+            risques.
+          </p>
+          <div class="note">
+            <ul>
+              <li>
+                <strong>A. Modèle locatif (3 ans)</strong> : ~<strong
+                  >1,20 M CHF</strong
+                >
+                au total, fondé sur un loyer ~30’000 CHF/an.
+              </li>
+              <li>
+                <strong>B. Achat du local (3 ans)</strong> : ~<strong
+                  >1,44 M CHF</strong
+                >, 25% de fonds propres et emprunt sur 10 ans.
+              </li>
+            </ul>
+          </div>
+          <p>
+            Ambition : <strong>1’200 jeunes</strong> accompagnés en 3 ans,
+            <strong>6 emplois</strong> créés (1 senior, 2 stagiaires, 3
+            apprentis), et un pôle d’innovation locale intergénérationnel, en
+            synergie avec écoles, entreprises et institutions.
+          </p>
+          <div
+            class="founder"
+            role="note"
+            aria-label="Note biographique (résumé)"
+          >
+            <div class="title">Note biographique — version courte</div>
+            <p>
+              Fondateur de tarmaq, j’ai exercé plusieurs années comme éducateur
+              en Chine, où j’ai conçu et animé des ateliers numériques et par
+              projets pour des lycéens et apprentis. Ce terrain m’a appris à
+              engager des publics hétérogènes, à mesurer les progrès par
+              compétences et à sécuriser les usages (données, éthique). Ces
+              méthodes — mentorat, défis concrets, badges de compétences —
+              structurent aujourd’hui tarmaq à Genève et soutiennent nos axes
+              mobilité (ICL Cup), inclusion et IA responsable.
+            </p>
+          </div>
+        </section>
+
+        <section id="contexte">
+          <h2>2) Contexte &amp; problématique</h2>
+          <ul>
+            <li>
+              Opportunités limitées de mobilité et d’expérimentation tech dans
+              le cursus classique.
+            </li>
+            <li>
+              Fracture numérique et enjeux de souveraineté/éthique de l’IA.
+            </li>
+            <li>Écosystème genevois riche mais peu interconnecté.</li>
+          </ul>
+          <p>
+            <strong>Réponse tarmaq</strong> : un
+            <strong>tiers‑lieu éducatif</strong> qui relie formation, projets
+            réels, mentors et entreprises, avec des
+            <strong>parcours concrets et mesurables</strong> vers l’emploi,
+            l’entrepreneuriat ou la poursuite d’études.
+          </p>
+          <div class="founder" role="note" aria-label="Note du fondateur">
+            <div class="title">Note du fondateur</div>
+            <p>
+              Au cours de plusieurs années, j’ai travaillé comme éducateur en
+              Chine auprès de jeunes de 15–20 ans (lycées professionnels et
+              associations). J’y ai lancé des ateliers d’initiation numérique,
+              des mini‑hackathons et un dispositif de suivi par compétences.
+              Résultats saillants : amélioration de l’assiduité, montée en
+              confiance, premières mises en relation école‑entreprise et projets
+              concrets (communication digitale, automatisations simples). Cette
+              expérience m’a appris trois choses utiles à tarmaq : (1) apprendre
+              en faisant (projets courts, livrables clairs), (2) animer un
+              réseau de mentors (professionnels + enseignants), (3) protéger les
+              données et l’éthique des usages numériques. À Genève, je transpose
+              ces pratiques avec un serveur IA local, un accompagnement renforcé
+              et des passerelles vers stages/emplois. Notre objectif : des
+              résultats mesurables pour les jeunes et des partenariats
+              gagnant‑gagnant avec écoles et entreprises.
+            </p>
+          </div>
+        </section>
+
+        <section id="vision">
+          <h2>3) Vision &amp; valeur ajoutée</h2>
+          <ul>
+            <li>
+              <strong>Apprendre en faisant</strong> : ateliers, missions
+              réelles, challenges et production de contenus.
+            </li>
+            <li>
+              <strong>IA responsable à portée de main</strong> : serveur IA
+              local (sécurité, confidentialité, souveraineté).
+            </li>
+            <li>
+              <strong>Ouverture &amp; mobilité</strong> : échanges et stages
+              (ex. ICL Cup – découverte de la Chine).
+            </li>
+            <li>
+              <strong>Lien intergénérationnel</strong> : ateliers croisés
+              jeunes/seniors, médiation numérique.
+            </li>
+            <li>
+              <strong>Ancrage local</strong> : co‑construction avec
+              collectivités, fondations, entreprises, associations.
+            </li>
+          </ul>
+        </section>
+
+        <section id="objectifs">
+          <h2>4) Objectifs (18–36 mois)</h2>
+          <ol>
+            <li>
+              <strong>Accès</strong> : 1’200 jeunes (≥40% milieux modestes) ;
+              50% filles/femmes visé.
+            </li>
+            <li>
+              <strong>Compétences</strong> : 1’800 certificats de
+              micro‑compétences (no‑code/low‑code, IA appliquée, data, médias).
+            </li>
+            <li>
+              <strong>Insertion</strong> : 200 stages/missions ; 80 embauches ou
+              poursuites d’études qualifiantes.
+            </li>
+            <li>
+              <strong>Mentorat</strong> : 120 mentors (tech, design, business,
+              artisanat numérique).
+            </li>
+            <li>
+              <strong>Écosystème</strong> : 60 partenariats actifs (écoles,
+              entreprises, institutions, fondations, associations).
+            </li>
+          </ol>
+        </section>
+
+        <section id="publics">
+          <h2>5) Publics cibles</h2>
+          <ul>
+            <li>
+              Jeunes 15–25 ans : lycéens, apprentis, étudiants, jeunes pros en
+              transition.
+            </li>
+            <li>Écoles &amp; CFA : modules pratiques et projets concrets.</li>
+            <li>
+              Entreprises &amp; institutions : défis d’innovation, mécénat de
+              compétences, missions.
+            </li>
+            <li>Seniors : ateliers IA &amp; numérique avec tutorat inversé.</li>
+          </ul>
+        </section>
+
+        <section id="offre">
+          <h2>6) Offre de programmes</h2>
+          <figure>
+            <img
+              src="hero-background.png"
+              alt="Atelier de Genève — prototypage et projets collaboratifs"
+              loading="lazy"
+            />
+            <figcaption>
+              Atelier de Genève — prototypage, data & IA appliquée.
+            </figcaption>
+          </figure>
+          <h3>A. Alpha‑IA (fondamentaux)</h3>
+          <ul>
+            <li>
+              IA générative responsable, automatisation, data, cybersécurité,
+              éthique.
+            </li>
+            <li>
+              Format : 2–12 semaines, évaluation par projets, badges de
+              compétences.
+            </li>
+          </ul>
+          <h3>B. Lab Projets &amp; Coworking</h3>
+          <ul>
+            <li>
+              Accès libre encadré, prêt de matériel, méthodo (Kanban, design
+              sprint, doc, pitch).
+            </li>
+            <li>
+              Missions réelles pour entreprises/associations (communication
+              digitale, automatisations, prototypage).
+            </li>
+          </ul>
+          <h3>C. Hackathons &amp; événements</h3>
+          <ul>
+            <li>
+              Thèmes : climat &amp; énergie, santé, inclusion, services publics,
+              culture, sport.
+            </li>
+            <li>Formats : 24–72h, jurys mixtes, bourses projet.</li>
+          </ul>
+        </section>
+
+        <section id="dispositif">
+          <h2>7) Dispositif opérationnel</h2>
+          <h3>Lieu &amp; logistique</h3>
+          <ul>
+            <li>
+              Espace 120–200 m² ; 20–30 postes ; studio média léger ; salle
+              atelier ; zone accueil.
+            </li>
+            <li>
+              Accessibilité : proximité transports, horaires élargis
+              (mercredis/samedis).
+            </li>
+          </ul>
+          <h3>Équipements</h3>
+          <ul>
+            <li>
+              10–15 laptops/PC, écrans, imprimantes, caméras/micros, mini‑studio
+              audio/vidéo.
+            </li>
+            <li>
+              <strong>Serveur IA local</strong> (privacy‑by‑design) : modèles
+              sur site, sandbox sécurisée, monitoring.
+            </li>
+          </ul>
+          <h3>Équipe cœur (6 ETP)</h3>
+          <ul>
+            <li>1 coordinateur·rice de centre (senior).</li>
+            <li>
+              2 stagiaires / 3 apprentis (accueil, technique, contenus,
+              médiation, prod. événements).
+            </li>
+          </ul>
+          <h3>Gouvernance &amp; partenaires</h3>
+          <ul>
+            <li>
+              Porteur : <strong>Association Perspectives Jeunesse</strong>.
+            </li>
+            <li>
+              Comité de pilotage : collectivités, fondations, écoles,
+              entreprises.
+            </li>
+            <li>
+              Partenariats : lycées/HES‑SO/EPFL/entreprises
+              tech/PME/associations.
+            </li>
+          </ul>
+          <h3>Aperçu des espaces</h3>
+          <div class="media-grid">
+            <figure>
+              <img
+                src="Mock.png"
+                alt="Espace d'accueil et networking — tarmaq"
+                loading="lazy"
+              />
+              <figcaption>Espace d’accueil & networking.</figcaption>
+            </figure>
+            <figure>
+              <img
+                src="Mock2.png"
+                alt="Salle de coworking & formation — tarmaq"
+                loading="lazy"
+              />
+              <figcaption>Salle de coworking & formation.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section id="modele">
+          <h2>8) Modèle économique (mix)</h2>
+          <p>
+            <strong>Subventions &amp; mécénat</strong> : Ville/Canton,
+            fondations (éducation, jeunesse, numérique), entreprises (cash &amp;
+            compétences).
+          </p>
+          <p>
+            <strong>Recettes propres</strong> (progressives, 10–20% à 3 ans) :
+          </p>
+          <ul>
+            <li>
+              Prestations B2B (ateliers, prototypage, automatisation, contenus).
+            </li>
+            <li>
+              Parrainages &amp; événements (hackathons, challenges sectoriels).
+            </li>
+            <li>Locations ponctuelles d’espaces (hors temps jeunes).</li>
+            <li>Adhésions solidaires / cotisations.</li>
+          </ul>
+        </section>
+
+        <section id="budget">
+          <h2>9) Budget &amp; plan de financement</h2>
+          <h3>Scénario A — Modèle locatif (3 ans ~1,20 M CHF)</h3>
+          <p class="note">
+            Hypothèses : loyer <strong>30’000 CHF/an</strong>, montée en charge
+            progressive, réserve et imprévus inclus.
+          </p>
+          <h3>A.1. Budget par poste (année type)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Poste</th>
+                <th class="num">Montant annuel (CHF)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Loyer &amp; charges</td>
+                <td class="num">30’000</td>
+              </tr>
+              <tr>
+                <td>Aménagement &amp; mobilier (année 1 majorée)</td>
+                <td class="num">20’000 (40’000 en A1)</td>
+              </tr>
+              <tr>
+                <td>Équipements informatiques &amp; audio‑visuels</td>
+                <td class="num">15’000</td>
+              </tr>
+              <tr>
+                <td>Serveur IA &amp; infra IT</td>
+                <td class="num">25’000</td>
+              </tr>
+              <tr>
+                <td>Salaires (1 senior, 2 stagiaires, 3 apprentis)</td>
+                <td class="num">155’000</td>
+              </tr>
+              <tr>
+                <td>Communication &amp; événements</td>
+                <td class="num">40’000</td>
+              </tr>
+              <tr>
+                <td>Réseau de mentors &amp; experts</td>
+                <td class="num">30’000</td>
+              </tr>
+              <tr>
+                <td>Fonctionnement &amp; assurances</td>
+                <td class="num">20’000</td>
+              </tr>
+              <tr>
+                <th>Total annuel (hors A1 surcoûts)</th>
+                <th class="num">335’000</th>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>A.2. Projection 3 ans</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Année</th>
+                <th class="num">Montant (CHF)</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>A1</td>
+                <td class="num">400’000</td>
+                <td>surcoûts d’aménagement, lancement, communication</td>
+              </tr>
+              <tr>
+                <td>A2</td>
+                <td class="num">390’000</td>
+                <td>montée en puissance, premières recettes propres</td>
+              </tr>
+              <tr>
+                <td>A3</td>
+                <td class="num">410’000</td>
+                <td>extension programmes, hausse bourses &amp; missions</td>
+              </tr>
+              <tr>
+                <th>Total 3 ans</th>
+                <th class="num">1’200’000</th>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>A.3. Plan de financement (cible, 3 ans)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Source</th>
+                <th class="num">Montant (CHF)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ville de Genève</td>
+                <td class="num">300’000</td>
+              </tr>
+              <tr>
+                <td>Canton de Genève</td>
+                <td class="num">250’000</td>
+              </tr>
+              <tr>
+                <td>Fondations privées</td>
+                <td class="num">350’000</td>
+              </tr>
+              <tr>
+                <td>Entreprises partenaires (cash &amp; en nature)</td>
+                <td class="num">150’000</td>
+              </tr>
+              <tr>
+                <td>Dons &amp; crowdfunding</td>
+                <td class="num">100’000</td>
+              </tr>
+              <tr>
+                <td>Recettes propres (ateliers, missions, locations)</td>
+                <td class="num">50’000</td>
+              </tr>
+              <tr>
+                <th>Total</th>
+                <th class="num">1’200’000</th>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Scénario B — Achat du local (3 ans ~1,44 M CHF)</h3>
+          <p class="note">
+            Hypothèses : prix d’achat <strong>700’000 CHF</strong>,
+            <strong>25%</strong> fonds propres, emprunt
+            <strong>525’000 CHF</strong> sur 10 ans (~58’000 CHF/an, taux 2–3%).
+          </p>
+          <h3>B.1. Budget année 1 (acquisition &amp; lancement)</h3>
+          <ul>
+            <li>Achat du local : 700’000</li>
+            <li>Frais annexes (notaire, taxes) : 20’000</li>
+            <li>Aménagement &amp; mobilier : 30’000</li>
+            <li>Équipements informatiques &amp; audio‑visuels : 25’000</li>
+            <li>Serveur IA &amp; infra IT : 25’000</li>
+            <li>Salaires : 155’000</li>
+            <li>Communication &amp; événements : 65’000</li>
+            <li>Mentorat &amp; experts : 30’000</li>
+            <li>Voyages éducatifs &amp; mobilité : 25’000</li>
+            <li>Gestion &amp; imprévus : 25’000</li>
+            <li><strong>Total A1</strong> : ~1’100’000 CHF</li>
+          </ul>
+          <h3>B.2. Budgets A2–A3 (annuels)</h3>
+          <ul>
+            <li>Remboursement prêt : ~58’000</li>
+            <li>Fonctionnement/entretien : 15’000</li>
+            <li>Salaires : 75’000</li>
+            <li>Communication &amp; événements : 12’000</li>
+            <li>Mentorat &amp; experts : 5’000</li>
+            <li>Voyages éducatifs : 5’000</li>
+            <li><strong>Total annuel A2/A3</strong> : ~170’000 CHF</li>
+          </ul>
+          <p><strong>B.3. Total 3 ans</strong> : ~1’440’000 CHF</p>
+          <h3>B.4. Plan de financement (cible, 3 ans)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Source</th>
+                <th class="num">Montant (CHF)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Emprunt bancaire</td>
+                <td class="num">525’000</td>
+              </tr>
+              <tr>
+                <td>Ville de Genève</td>
+                <td class="num">250’000</td>
+              </tr>
+              <tr>
+                <td>Canton de Genève</td>
+                <td class="num">250’000</td>
+              </tr>
+              <tr>
+                <td>Fondation Hans Wilsdorf (ou équivalent)</td>
+                <td class="num">300’000</td>
+              </tr>
+              <tr>
+                <td>Autres fondations</td>
+                <td class="num">50’000</td>
+              </tr>
+              <tr>
+                <td>Entreprises partenaires</td>
+                <td class="num">40’000</td>
+              </tr>
+              <tr>
+                <td>Crowdfunding &amp; dons</td>
+                <td class="num">15’000</td>
+              </tr>
+              <tr>
+                <td>Apport Perspectives Jeunesse</td>
+                <td class="num">10’000</td>
+              </tr>
+              <tr>
+                <th>Total</th>
+                <th class="num">1’440’000</th>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="calendrier">
+          <h2>10) Calendrier prévisionnel (2025–2026)</h2>
+          <ul>
+            <li>
+              <strong>Avril–Juin 2025</strong> : levée de fonds, promesses de
+              soutien ; sélection du site.
+            </li>
+            <li>
+              <strong>Juillet–Août 2025</strong> : signature bail / achat ;
+              aménagement ; recrutement.
+            </li>
+            <li>
+              <strong>Septembre 2025</strong> : ouverture officielle du centre
+              tarmaq Genève.
+            </li>
+            <li>
+              <strong>Oct.–Déc. 2025</strong> : 1ère vague d’ateliers,
+              hackathons, missions entreprises.
+            </li>
+            <li>
+              <strong>Janv.–Juin 2026</strong> : déploiement complet des
+              programmes ; 1er bilan intermédiaire.
+            </li>
+          </ul>
+        </section>
+
+        <section id="indicateurs">
+          <h2>11) Indicateurs &amp; évaluation d’impact</h2>
+          <p>
+            <strong>Quantitatifs</strong> : # de jeunes accueillis / formés ; #
+            certificats délivrés ; # missions/stages ; # embauches/poursuites
+            d’études ; # mentors actifs ; # partenariats signés ; # événements
+            &amp; taux de satisfaction.
+          </p>
+          <p>
+            <strong>Qualitatifs</strong> : progression perçue des compétences ;
+            confiance et motivation ; retour des entreprises ; études de cas.
+          </p>
+          <p>
+            <strong>Reporting</strong> : tableau de bord trimestriel, bilan
+            annuel, enquêtes bénéficiaires &amp; partenaires, transparence
+            financière.
+          </p>
+        </section>
+
+        <section id="risques">
+          <h2>12) Risques &amp; mesures</h2>
+          <ul>
+            <li>
+              <strong>Financement</strong> : phasage des engagements ;
+              diversification sources ; mécénat de compétences.
+            </li>
+            <li>
+              <strong>Adoption</strong> : co‑construction avec établissements ;
+              ambassadeurs jeunes ; programmes « quick win ».
+            </li>
+            <li>
+              <strong>Technique (IA)</strong> : serveur local isolé ;
+              gouvernance des données ; chartes d’usage ; supervision experte.
+            </li>
+            <li>
+              <strong>RH</strong> : attractivité via missions réelles, formation
+              continue et réseau mentors.
+            </li>
+          </ul>
+        </section>
+
+        <section id="gouvernance">
+          <h2>13) Gouvernance &amp; conformité</h2>
+          <ul>
+            <li>
+              Association loi suisse, statuts &amp; comptes audités, comité de
+              pilotage multi‑parties prenantes.
+            </li>
+            <li>
+              Politiques : protection des données, inclusion &amp; égalité,
+              achats responsables, accessibilité.
+            </li>
+          </ul>
+        </section>
+
+        <section id="com">
+          <h2>14) Plan de communication</h2>
+          <ul>
+            <li>
+              <strong>Branding</strong> : identité
+              <strong>tarmaq</strong> (rouge principal, modernité, lisibilité),
+              déclinaisons web &amp; print.
+            </li>
+            <li>
+              <strong>Canaux</strong> : site tarmaq.ch, réseaux sociaux,
+              newsletter, relations médias, écosystème local.
+            </li>
+            <li>
+              <strong>Moments clés</strong> : ouverture, hackathons thématiques,
+              restitutions projets, témoignages bénéficiaires.
+            </li>
+          </ul>
+        </section>
+
+        <section id="expansion">
+          <h2>15) Feuille de route d’expansion (2025–2030)</h2>
+          <ul>
+            <li><strong>2025</strong> : Genève (pilote opérationnel)</li>
+            <li>
+              <strong>2026</strong> : Lausanne + coordination nationale (tarmaq
+              Suisse)
+            </li>
+            <li><strong>2027</strong> : Zurich</li>
+            <li><strong>2028</strong> : Bâle</li>
+            <li><strong>2029</strong> : Berne</li>
+            <li>
+              <strong>2030</strong> : interconnexion des centres, mutualisation
+              outils &amp; projets nationaux.
+            </li>
+          </ul>
+          <p>
+            <em>Modèle économique par centre (année 1)</em> : loyer ~30’000 ;
+            aménagement 20’000 ; équipement 15’000 ; salaires 155’000 ;
+            com/événements 40’000 ; mentors 30’000 →
+            <strong>~290’000 CHF</strong>/centre.
+          </p>
+        </section>
+
+        <section id="partenaires">
+          <h2>16) Proposition aux mécènes &amp; partenaires</h2>
+          <ul>
+            <li>
+              <strong>Pack « Fondateur »</strong> : naming d’un espace,
+              co‑conception d’un programme, reporting d’impact dédié.
+            </li>
+            <li>
+              <strong>Pack « Innovation »</strong> : parrainage hackathons,
+              défis d’entreprise, bourses projets.
+            </li>
+            <li>
+              <strong>Pack « Inclusion »</strong> : bourses mobilité &amp; ICL
+              Cup, dotations matériel, soutien RH (apprentis/stagiaires).
+            </li>
+            <li>
+              <strong>Mécénat de compétences</strong> : mentors, masterclasses,
+              jurys, coaching projets.
+            </li>
+          </ul>
+        </section>
+
+        <section id="comparatif">
+          <h2>17) Budget synthétique (comparatif scénarios)</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Poste</th>
+                <th class="num">Scénario A (Locatif, 3 ans)</th>
+                <th class="num">Scénario B (Achat, 3 ans)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Immobilier (loyer/achat)</td>
+                <td class="num">90’000</td>
+                <td class="num">720’000 + 20’000 frais</td>
+              </tr>
+              <tr>
+                <td>Équipements &amp; aménagements</td>
+                <td class="num">100’000</td>
+                <td class="num">110’000</td>
+              </tr>
+              <tr>
+                <td>Serveur IA &amp; IT</td>
+                <td class="num">75’000</td>
+                <td class="num">75’000</td>
+              </tr>
+              <tr>
+                <td>Salaires</td>
+                <td class="num">465’000</td>
+                <td class="num">305’000</td>
+              </tr>
+              <tr>
+                <td>Com &amp; événements</td>
+                <td class="num">120’000</td>
+                <td class="num">89’000</td>
+              </tr>
+              <tr>
+                <td>Mentors &amp; experts</td>
+                <td class="num">90’000</td>
+                <td class="num">40’000</td>
+              </tr>
+              <tr>
+                <td>Mobilité &amp; voyages</td>
+                <td class="num">30’000</td>
+                <td class="num">35’000</td>
+              </tr>
+              <tr>
+                <td>Fonctionnement &amp; imprévus</td>
+                <td class="num">230’000</td>
+                <td class="num">46’000</td>
+              </tr>
+              <tr>
+                <th>Total 3 ans</th>
+                <th class="num">1’200’000</th>
+                <th class="num">1’440’000</th>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="conclusion">
+          <h2>18) Conclusion</h2>
+          <p>
+            <strong>tarmaq</strong> propose un modèle robuste, inclusif et
+            souverain pour développer les compétences de la jeunesse et
+            renforcer l’écosystème genevois. Votre soutien permet d’ouvrir dès
+            2025 un lieu d’apprentissage <strong>par l’action</strong>, ancré
+            localement, mesurable dans ses résultats et
+            <strong>réplicable</strong> à l’échelle nationale.
+          </p>
+          <p>
+            <strong
+              >Nous serions heureux de présenter ce dossier et d’adapter un pack
+              de partenariat sur mesure.</strong
+            >
+          </p>
+        </section>
+
+        <!-- Témoignages -->
+        <section id="temoignages">
+          <h2>Témoignages</h2>
+          <div class="testi">
+            <div class="quote">
+              “Grâce à <strong>tarmaq</strong>, j’ai automatisé la newsletter de
+              notre association et décroché mon premier stage.” — Léa, 18 ans
+            </div>
+            <div class="quote">
+              “Le serveur IA local nous a permis de prototyper rapidement, sans
+              exposer de données sensibles.” — Marc, mentor data
+            </div>
+            <div class="quote">
+              “Un pont concret entre écoles et entreprises. On y rencontre des
+              talents motivés.” — Claire, responsable RH
+            </div>
+          </div>
+        </section>
+
+        <!-- Logos partenaires -->
+        <section id="logos">
+          <h2>Logos partenaires</h2>
+          <div class="logos">
+            <div class="logoBox">Logo 1</div>
+            <div class="logoBox">Logo 2</div>
+            <div class="logoBox">Logo 3</div>
+            <div class="logoBox">Logo 4</div>
+            <div class="logoBox">Logo 5</div>
+            <div class="logoBox">Logo 6</div>
+          </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+          <h2>Contact</h2>
+          <p>
+            Intéressé·e par un partenariat ou un mécénat ? Laissez‑nous un
+            message et nous vous recontactons rapidement.
+          </p>
+          <form
+            class="card"
+            method="post"
+            action="#"
+            onsubmit="event.preventDefault(); alert('Merci ! Votre message est prêt à être envoyé. (Intégrer ici votre endpoint de formulaire)');"
+          >
+            <div>
+              <label for="nom">Votre nom</label>
+              <input
+                id="nom"
+                name="nom"
+                type="text"
+                placeholder="Nom et prénom"
+                required
+              />
+            </div>
+            <div>
+              <label for="email">Votre e‑mail</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="nom@domaine.ch"
+                required
+              />
+            </div>
+            <div>
+              <label for="message">Votre message</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Je souhaite soutenir tarmaq…"
+                required
+              ></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center">
+              <button class="btn primary" type="submit">Envoyer</button>
+              <a
+                class="btn"
+                href="mailto:contact@tarmaq.ch?subject=Mécénat%20tarmaq"
+                >Envoyer par e‑mail</a
+              >
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      © 2025 — tarmaq • Association Perspectives Jeunesse
+      <span class="badge">Version HTML</span>
+    </footer>
+
+    <script>
+      // Theme toggle with persistence
+      (function () {
+        const elHtml = document.documentElement;
+        const btn = document.getElementById('toggleTheme');
+        const saved = localStorage.getItem('tarmaq_theme');
+        if (saved === 'dark') {
+          elHtml.classList.add('dark');
+        }
+        btn.addEventListener('click', () => {
+          elHtml.classList.toggle('dark');
+          localStorage.setItem(
+            'tarmaq_theme',
+            elHtml.classList.contains('dark') ? 'dark' : 'light'
+          );
+        });
+      })();
+    </script>
+  </body>
+</html>
