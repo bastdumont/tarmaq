@@ -1,146 +1,108 @@
-# Tarmaq - Accélérateur d'opportunités pour la relève
+# tarmaq.ch — Accélérateur d'opportunités à Genève
 
-Une plateforme web moderne pour Tarmaq, l'initiative qui propulse la jeunesse genevoise dans le futur du travail et de l'IA.
+## Vue d'ensemble
 
-## 🚀 Production Build
+tarmaq est un accélérateur d'opportunités pour les jeunes qui souhaitent explorer l'IA, entreprendre, créer et rêver. Nous proposons un espace ouvert à tous, avec des équipements de pointe, des programmes concrets, des expériences terrain et une communauté active pour apprendre en faisant.
 
-### Prérequis
-- Node.js 18+ 
-- npm 9+
+## Structure du site
 
-### Installation des dépendances
-```bash
-npm install
-```
+Le site est disponible en deux versions avec un système de basculement automatique :
 
-### Build de production
-```bash
-# Build optimisé pour la production
-npm run build
+### 📱 Version Mobile (`tarmaq-mobile.html`)
+- Interface optimisée pour mobile avec simulation d'appareil
+- Navigation par menu hamburger
+- Design responsive et adapté aux petits écrans
+- Bouton de basculement vers la version desktop
 
-# Build avec analyse des bundles
-npm run build:analyze
+### 🖥️ Version Desktop (`tarmaq-desktop2.html`)
+- Interface complète pour écrans larges
+- Navigation complète avec menus déroulants
+- Mise en page étendue avec plus de contenu visible
+- Bouton de basculement vers la version mobile
 
-# Preview du build de production
-npm run preview
+### 🔄 Système de basculement
+- **Page d'accueil** (`index.html`) : Redirige automatiquement vers la version desktop par défaut
+- **Préférence utilisateur** : Sauvegarde le choix de l'utilisateur dans le localStorage
+- **Basculement manuel** : Boutons dans chaque version pour changer de vue
+- **Redirection intelligente** : Respecte la dernière préférence de l'utilisateur
 
-# Build + Preview en une commande
-npm run preview:build
-```
+## Navigation entre les vues
 
-### Déploiement
-```bash
-# Nettoyer le dossier dist
-npm run clean
+### Depuis la version Desktop
+- Cliquer sur l'icône mobile (📱) dans l'en-tête
+- Redirection automatique vers `tarmaq-mobile.html`
 
-# Construire pour la production
-npm run build
+### Depuis la version Mobile
+- Cliquer sur l'icône desktop (💻) dans l'en-tête
+- Redirection automatique vers `tarmaq-desktop2.html`
 
-# Servir localement (pour test)
-npm run serve
-```
+## Fonctionnalités
 
-Le dossier `dist/` contient votre application optimisée pour la production.
+### Programmes
+- **Bootcamps IA** : Construction d'agents IA utiles en 2 jours
+- **Hackathons** : Défis d'innovation pour Genève
+- **Stages** : Immersion en PME et startups
+- **Mentorat** : Accompagnement par des praticiens
+- **Voyages** : Visites d'écosystèmes innovants
 
-## 🛠️ Scripts disponibles
+### Approche pédagogique
+1. **Formation** : Bootcamps, ateliers, entrepreneuriat
+2. **Expériences** : Projets réels et hackathons
+3. **Communauté** : Réseau de mentors et pairs
 
-- `npm run dev` - Démarre le serveur de développement
-- `npm run build` - Build de production optimisé
-- `npm run preview` - Preview du build de production
-- `npm run test` - Lance les tests
-- `npm run lint` - Vérifie la qualité du code
-- `npm run lint:fix` - Corrige automatiquement les problèmes de linting
-- `npm run format` - Formate le code avec Prettier
-- `npm run clean` - Nettoie le dossier de build
+### Partenaires
+- CCIG (Chambre de commerce de Genève)
+- RENT (Real Estate & New Tech Switzerland)
+- Société de Lecture de Genève
+- BiAlps
+- Building Bridges
+- Balder App
 
-## 📁 Structure du projet
+## Technologies utilisées
+
+- **Frontend** : HTML5, CSS3, JavaScript vanilla
+- **Styling** : Tailwind CSS (via CDN)
+- **Responsive** : Design mobile-first avec breakpoints
+- **Animations** : Transitions CSS et micro-interactions
+- **Stockage** : localStorage pour les préférences utilisateur
+
+## Structure des fichiers
 
 ```
 tarmaq/
+├── index.html              # Page d'accueil avec redirection automatique
+├── tarmaq-desktop2.html   # Version desktop complète
+├── tarmaq-mobile.html     # Version mobile optimisée
 ├── src/
-│   ├── App.jsx          # Composant principal
-│   ├── main.jsx         # Point d'entrée
-│   └── assets/          # Images et ressources
-├── dist/                # Build de production (généré)
-├── vite.config.js       # Configuration Vite
-├── package.json         # Dépendances et scripts
-└── README.md           # Ce fichier
+│   └── assets/            # Images et ressources
+│       ├── logo.png
+│       ├── hero-background.png
+│       └── [autres images...]
+└── README.md
 ```
 
-## 🔧 Configuration de production
+## Déploiement
 
-### Optimisations automatiques
-- **Minification** : Code et CSS minifiés avec Terser
-- **Tree shaking** : Suppression du code inutilisé
-- **Code splitting** : Séparation automatique des chunks
-- **Asset optimization** : Images et ressources optimisées
-- **Console removal** : Suppression des console.log en production
-
-### Performance
-- **Lazy loading** : Chargement différé des composants
-- **Bundle analysis** : Analyse des tailles de bundles
-- **Source maps** : Désactivés en production
-- **Compression** : Gzip/Brotli ready
-
-## 🌐 Déploiement
-
-### Serveur statique
-L'application peut être déployée sur n'importe quel serveur statique :
+Le site est prêt pour le déploiement sur n'importe quel hébergeur web statique :
+- GitHub Pages
 - Netlify
 - Vercel
-- GitHub Pages
-- Serveur Apache/Nginx
+- Serveur web traditionnel
 
-### Variables d'environnement
-Créez un fichier `.env.production` pour les variables de production :
-```env
-VITE_API_URL=https://api.tarmaq.ch
-VITE_ANALYTICS_ID=your-analytics-id
-```
+## Développement
 
-## 📱 Responsive Design
-L'application est entièrement responsive et optimisée pour :
-- Desktop (1200px+)
-- Tablet (768px - 1199px)
-- Mobile (320px - 767px)
+Pour tester localement :
+1. Ouvrir `index.html` dans un navigateur
+2. Le site redirigera automatiquement vers la version desktop
+3. Utiliser les boutons de basculement pour tester les deux versions
 
-## ♿ Accessibilité
-- Navigation au clavier
-- Support des lecteurs d'écran
-- Contraste optimisé
-- ARIA labels appropriés
+## Support et maintenance
 
-## 🧪 Tests
-```bash
-# Tests unitaires
-npm run test
-
-# Tests en mode watch
-npm run test:watch
-```
-
-## 📊 Analyse des performances
-```bash
-# Analyse du bundle
-npm run build:analyze
-
-# Lighthouse CI (optionnel)
-npm install -g lighthouse
-lighthouse dist/index.html
-```
-
-## 🔄 Mise à jour
-```bash
-# Mettre à jour les dépendances
-npm update
-
-# Vérifier les vulnérabilités
-npm audit
-
-# Corriger automatiquement
-npm audit fix
-```
+- **Contact** : info@tarmaq.ch
+- **Responsive** : Testé sur desktop, tablette et mobile
+- **Accessibilité** : Navigation clavier et lecteurs d'écran
+- **Performance** : Optimisé pour le chargement rapide
 
 ---
 
-**Tarmaq** - Propulser la jeunesse genevoise dans le futur du travail et de l'IA 🚀
+*Une initiative de Perspectives Jeunesse, à Genève*
