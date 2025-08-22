@@ -40,6 +40,58 @@
             box-shadow: 0 4px 20px rgba(227, 0, 7, 0.1);
             border: 1px solid rgba(227, 0, 7, 0.1);
         }
+
+        /* Header styles */
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2a2a2a;
+            padding: 14px 24px;
+            border-radius: 16px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 1px solid #e8e8ec;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(140deg, #ff9d9b, #da2f2c);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 16px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(218, 47, 44, 0.25);
+        }
+
+        /* Navigation styles */
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
         
         .budget-item {
             display: flex;
@@ -70,7 +122,43 @@
 </head>
 <body class="bg-gray-50 font-sans">
     <!-- Header -->
-    <header class="tarmaq-bg-primary text-white p-6">
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-stroke/50">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-4">
+                    <img src="src/assets/logo.png" alt="tarmaq" class="h-12 w-auto" />
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center gap-8">
+                    <a href="index.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Accueil</a>
+                    <a href="tarmaq-adémie/" class="font-semibold text-ink-2 hover:text-brand transition-colors">tarmaq-adémie</a>
+                    <a href="tarmaq_version_html_fondateur.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Projet</a>
+                    <a href="Budget.html" class="font-semibold text-brand">Budget</a>
+                    <a href="tarmaq_interactive_mindmap.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Mindmap</a>
+                </nav>
+
+                <!-- CTA Buttons -->
+                <div class="hidden lg:flex items-center gap-4">
+                    <button class="btn-secondary">Appel à soutien</button>
+                    <button class="btn-gradient">Faire un don</button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center gap-2">
+                    <button class="lg:hidden p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Title Section -->
+    <div class="tarmaq-bg-primary text-white p-6">
         <div class="max-w-6xl mx-auto">
             <div class="flex items-center space-x-4 mb-4">
                 <div class="bg-white p-3 rounded-lg">
@@ -85,7 +173,7 @@
                 </div>
             </div>
         </div>
-    </header>
+    </div>
 
     <div class="max-w-6xl mx-auto p-6 space-y-8">
         
