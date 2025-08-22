@@ -1,0 +1,1053 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation complète tarmaq - Version officielle</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tarmaq-red: #E30007;
+            --tarmaq-red-light: #EE666A;
+            --tarmaq-red-lighter: #F4999C;
+            --tarmaq-red-lightest: #F9CCCD;
+            --tarmaq-red-pale: #FCEE66;
+            --tarmaq-dark: #CC0006;
+            --tarmaq-darker: #860006;
+            --tarmaq-darkest: #9F0005;
+            --tarmaq-gray-1: #FAFAFA;
+            --tarmaq-gray-2: #F5F5F5;
+            --tarmaq-gray-3: #EEEEEE;
+            --tarmaq-gray-4: #E5E7EB;
+            --tarmaq-gray-5: #6B7280;
+        }
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #1f2937;
+        }
+        
+        .tarmaq-red { color: var(--tarmaq-red); }
+        .bg-tarmaq-red { background-color: var(--tarmaq-red); }
+        .border-tarmaq-red { border-color: var(--tarmaq-red); }
+        .bg-tarmaq-light { background-color: var(--tarmaq-red-lightest); }
+        
+        .h1-tarmaq {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--tarmaq-red);
+        }
+        
+        .h2-tarmaq {
+            font-size: 34px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--tarmaq-red);
+        }
+        
+        .h3-tarmaq {
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--tarmaq-dark);
+        }
+        
+        .body-tarmaq {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        
+        .btn-primary-tarmaq {
+            background-color: var(--tarmaq-red);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary-tarmaq:hover {
+            background-color: var(--tarmaq-dark);
+        }
+        
+        .btn-secondary-tarmaq {
+            background-color: transparent;
+            color: var(--tarmaq-red);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            border: 2px solid var(--tarmaq-red);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary-tarmaq:hover {
+            background-color: var(--tarmaq-red);
+            color: white;
+        }
+        
+        .card-tarmaq {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            border: 1px solid var(--tarmaq-gray-3);
+        }
+        
+        .spacing-8 { margin: 8px; }
+        .spacing-16 { margin: 16px; }
+        .spacing-24 { margin: 24px; }
+        .spacing-32 { margin: 32px; }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .tarmaq-logo {
+            width: 60px;
+            height: 60px;
+            background-color: var(--tarmaq-red);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .tarmaq-logo::before {
+            content: '';
+            width: 35px;
+            height: 6px;
+            background-color: white;
+            border-radius: 3px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        
+        .tarmaq-logo::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 8px solid white;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, var(--tarmaq-red-lightest), var(--tarmaq-red-lighter));
+            border-left: 4px solid var(--tarmaq-red);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid var(--tarmaq-red-lightest);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--tarmaq-red);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--tarmaq-gray-5);
+            margin-top: 8px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background-color: var(--tarmaq-red);
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 8px;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            width: 2px;
+            height: calc(100% + 24px);
+            background-color: var(--tarmaq-red-lightest);
+            position: absolute;
+            left: 5px;
+            top: 20px;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+         {
+            body { font-size: 12px; }
+            .h1-tarmaq { font-size: 2rem; }
+            .h2-tarmaq { font-size: 26px; }
+            .h3-tarmaq { font-size: 22px; }
+            .spacing-32 { margin: 16px; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b-2 border-tarmaq-red mb-8">
+        <div class="max-w-7xl mx-auto px-8 py-6">
+            <div class="logo-container">
+                <div class="tarmaq-logo"></div>
+                <div>
+                    <h1 class="h1-tarmaq mb-0">tarmaq</h1>
+                    <p class="body-tarmaq text-gray-600 mt-1">Une base pour accompagner, former et projeter la jeunesse dans l'avenir</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-8 pb-12">
+        <!-- Vue d'ensemble -->
+        <section class="mb-12">
+            <h2 class="h2-tarmaq mb-6">Vue d'ensemble du projet</h2>
+            <div class="highlight-box">
+                <p class="body-tarmaq mb-4">
+                    <strong>tarmaq</strong> est un projet structurant porté par l'association <strong>Perspectives Jeunesse</strong>, visant à créer un lieu physique unique à Genève dédié à l'accompagnement des jeunes de 15 à 25 ans.
+                </p>
+                <p class="body-tarmaq">
+                    Ce lieu sera un véritable tremplin, un espace d'innovation sociale, culturelle et technologique, où les jeunes pourront se former, expérimenter, créer et se projeter dans l'avenir.
+                </p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Emplois créés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Jeunes accompagnés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Villes d'expansion</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2025</div>
+                    <div class="stat-label">Lancement Genève</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contexte et enjeux -->
+        <section class="mb-12">
+            <h2 class="h2-tarmaq mb-6">Contexte et enjeux</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Constats</h3>
+                    <ul class="body-tarmaq space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-exclamation-triangle tarmaq-red mr-3 mt-1"></i>
+                            La jeunesse suisse évolue dans un monde en mutation rapide
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-school tarmaq-red mr-3 mt-1"></i>
+                            Le système académique reste peu ouvert à l'expérimentation
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-globe tarmaq-red mr-3 mt-1"></i>
+                            Peu d'opportunités de mobilité internationale
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-laptop-code tarmaq-red mr-3 mt-1"></i>
+                            Accès limité aux technologies de pointe
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Réponse tarmaq</h3>
+                    <ul class="body-tarmaq space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-rocket text-green-600 mr-3 mt-1"></i>
+                            Un espace tremplin pour tous les jeunes
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-hands-helping text-green-600 mr-3 mt-1"></i>
+                            Accompagnement personnalisé et bienveillant
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-tools text-green-600 mr-3 mt-1"></i>
+                            Formation aux outils de demain
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-network-wired text-green-600 mr-3 mt-1"></i>
+                            Réseau d'experts et de partenaires locaux
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Objectifs -->
+        <section class="mb-12">
+            <h2 class="h2-tarmaq mb-6">Objectifs du projet</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card-tarmaq">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-building text-2xl tarmaq-red mr-4"></i>
+                        <h3 class="h3-tarmaq text-lg">Lieu physique</h3>
+                    </div>
+                    <p class="body-tarmaq">Créer un espace dédié à Genève pour l'accompagnement et la valorisation des jeunes</p>
+                </div>
+                <div class="card-tarmaq">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-graduation-cap text-2xl tarmaq-red mr-4"></i>
+                        <h3 class="h3-tarmaq text-lg">Formation pratique</h3>
+                    </div>
+                    <p class="body-tarmaq">Favoriser l'apprentissage par la pratique dans la communication, la technologie et la culture</p>
+                </div>
+                <div class="card-tarmaq">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-plane text-2xl tarmaq-red mr-4"></i>
+                        <h3 class="h3-tarmaq text-lg">Mobilité internationale</h3>
+                    </div>
+                    <p class="body-tarmaq">Service gratuit d'aide à la mobilité et voyages éducatifs en lien avec les écoles</p>
+                </div>
+                <div class="card-tarmaq">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-code text-2xl tarmaq-red mr-4"></i>
+                        <h3 class="h3-tarmaq text-lg">Technologies émergentes</h3>
+                    </div>
+                    <p class="body-tarmaq">Événements, hackathons et ateliers autour des technologies d'avenir</p>
+                </div>
+                <div class="card-tarmaq">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-robot text-2xl tarmaq-red mr-4"></i>
+                        <h3 class="h3-tarmaq text-lg">IA éthique</h3>
+                    </div>
+                    <p class="body-tarmaq">Sensibilisation à l'usage éthique de l'IA avec un environnement local sécurisé</p>
+                </div>
+                <div class="card-tarmaq">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-briefcase text-2xl tarmaq-red mr-4"></i>
+                        <h3 class="h3-tarmaq text-lg">Emplois jeunes</h3>
+                    </div>
+                    <p class="body-tarmaq">Créer 6 emplois pour jeunes en insertion (1 senior, 2 stagiaires, 3 apprentis)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activités et services -->
+        <section class="mb-12">
+            <h2 class="h2-tarmaq mb-6">Activités et services</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Formation et accompagnement</h3>
+                    <ul class="body-tarmaq space-y-2">
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Formation aux outils numériques et IA</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Espace coworking gratuit et équipé</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Accompagnement personnalisé (insertion, entrepreneuriat, études)</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Découverte des métiers du futur</li>
+                    </ul>
+                </div>
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Événements et projets</h3>
+                    <ul class="body-tarmaq space-y-2">
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Ateliers pédagogiques et hackathons</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Événements créatifs et technologiques</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Production de contenus médias</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Valorisation de la parole des jeunes</li>
+                    </ul>
+                </div>
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Innovation technologique</h3>
+                    <ul class="body-tarmaq space-y-2">
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Serveur IA local et sécurisé</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Formation cybersécurité et design thinking</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Expérimentation technologique en confiance</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Développement de compétences avancées</li>
+                    </ul>
+                </div>
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Dimension intergénérationnelle</h3>
+                    <ul class="body-tarmaq space-y-2">
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Ateliers jeunes-seniors sur l'IA</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Transmission de savoirs bidirectionnelle</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Démocratisation des usages numériques</li>
+                        <li><i class="fas fa-check tarmaq-red mr-2"></i>Renforcement du lien social</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Structure organisationnelle -->
+        <section class="mb-12">
+            <h2 class="h2-tarmaq mb-6">Structure organisationnelle</h2>
+            <div class="card-tarmaq mb-6">
+                <h3 class="h3-tarmaq mb-4">Association porteuse</h3>
+                <p class="body-tarmaq mb-4">
+                    <strong>Perspectives Jeunesse</strong> porte le projet tarmaq avec une équipe mobilisée et expérimentée dans l'accompagnement de la jeunesse.
+                </p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="text-center p-4 bg-tarmaq-light rounded-lg">
+                        <i class="fas fa-user-tie text-3xl tarmaq-red mb-2"></i>
+                        <div class="font-semibold">1 Senior</div>
+                        <div class="text-sm text-gray-600">Coordinateur principal</div>
+                    </div>
+                    <div class="text-center p-4 bg-tarmaq-light rounded-lg">
+                        <i class="fas fa-users text-3xl tarmaq-red mb-2"></i>
+                        <div class="font-semibold">2 Stagiaires</div>
+                        <div class="text-sm text-gray-600">Support et animation</div>
+                    </div>
+                    <div class="text-center p-4 bg-tarmaq-light rounded-lg">
+                        <i class="fas fa-graduation-cap text-3xl tarmaq-red mb-2"></i>
+                        <div class="font-semibold">3 Apprentis</div>
+                        <div class="text-sm text-gray-600">Formation et projets</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-tarmaq">
+                <h3 class="h3-tarmaq mb-4">Réseau de partenaires</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold mb-3 tarmaq-red">Partenaires publics</h4>
+                        <ul class="body-tarmaq space-y-1">
+                            <li>• Ville de Genève</li>
+                            <li>• Canton de Genève</li>
+                            <li>• Institutions publiques</li>
+                            <li>• Écoles et universités</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3 tarmaq-red">Partenaires privés</h4>
+                        <ul class="body-tarmaq space-y-1">
+                            <li>• Fondations privées</li>
+                            <li>• Entreprises technologiques</li>
+                            <li>• Mentors et experts locaux</li>
+                            <li>• Réseau associatif jeunesse</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plans budgétaires -->
+        <section class="mb-12">
+            <h2 class="h2-tarmaq mb-6">Plans budgétaires</h2>
+            
+            <!-- Scénario 1: Budget 500k -->
+            <div class="card-tarmaq mb-8">
+                <h3 class="h3-tarmaq mb-4">Scénario 1 : Budget initial (500'000 CHF)</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-semibold mb-3 tarmaq-red">Répartition budgétaire</h4>
+                        <div class="space-y-2 body-tarmaq">
+                            <div class="flex justify-between">
+                                <span>Achat/aménagement local</span>
+                                <span class="font-semibold">250'000 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Matériel informatique</span>
+                                <span class="font-semibold">15'000 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Salaires équipe</span>
+                                <span class="font-semibold">155'000 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Communication & événements</span>
+                                <span class="font-semibold">25'000 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Voyages éducatifs</span>
+                                <span class="font-semibold">20'000 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Serveur IA local</span>
+                                <span class="font-semibold">15'000 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Charges & fonctionnement</span>
+                                <span class="font-semibold">20'000 CHF</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3 tarmaq-red">Sources de financement</h4>
+                        <div class="space-y-2 body-tarmaq">
+                            <div class="flex justify-between">
+                                <span>Ville/Canton Genève</span>
+                                <span class="font-semibold">150'000 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Fondations privées</span>
+                                <span class="font-semibold">150'000 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Entreprises partenaires</span>
+                                <span class="font-semibold">100'000 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Mécénat/dons privés</span>
+                                <span class="font-semibold">50'000 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Apport association</span>
+                                <span class="font-semibold">50'000 CHF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scénario 2: Budget 1M avec achat -->
+            <div class="card-tarmaq">
+                <h3 class="h3-tarmaq mb-4">Scénario 2 : Avec achat du local (1'440'000 CHF sur 3 ans)</h3>
+                <div class="highlight-box mb-4">
+                    <p class="body-tarmaq"><strong>Prix d'achat :</strong> 700'000 CHF • <strong>Fonds propres (25%) :</strong> 175'000 CHF • <strong>Emprunt :</strong> 525'000 CHF</p>
+                    <p class="body-tarmaq"><strong>Prêt :</strong> 10 ans, 2-3% • <strong>Remboursement annuel :</strong> ~58'000 CHF</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h4 class="font-semibold mb-3 tarmaq-red">Année 1 (1'100'000 CHF)</h4>
+                        <div class="space-y-1 body-tarmaq text-sm">
+                            <div class="flex justify-between">
+                                <span>Achat local</span>
+                                <span>700'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Frais annexes</span>
+                                <span>20'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Aménagement</span>
+                                <span>30'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Équipements</span>
+                                <span>50'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Salaires</span>
+                                <span>155'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Communication</span>
+                                <span>65'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Autres</span>
+                                <span>80'000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3 tarmaq-red">Années 2-3 (170'000 CHF/an)</h4>
+                        <div class="space-y-1 body-tarmaq text-sm">
+                            <div class="flex justify-between">
+                                <span>Remboursement prêt</span>
+                                <span>58'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Salaires équipe</span>
+                                <span>75'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Fonctionnement</span>
+                                <span>15'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Communication</span>
+                                <span>12'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Voyages/Mentors</span>
+                                <span>10'000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3 tarmaq-red">Financement total</h4>
+                        <div class="space-y-1 body-tarmaq text-sm">
+                            <div class="flex justify-between">
+                                <span>Emprunt bancaire</span>
+                                <span>525'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Ville Genève</span>
+                                <span>250'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Canton Genève</span>
+                                <span>250'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Fondation Wilsdorf</span>
+                                <span>300'000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Autres sources</span>
+                                <span>115'000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expansion nationale -->
+        <section class="mb-12">
+            <h2 class="h2-tarmaq mb-6">Plan d'expansion nationale</h2>
+            <div class="card-tarmaq mb-6">
+                <h3 class="h3-tarmaq mb-4">Vision : Réseau tarmaq Suisse</h3>
+                <p class="body-tarmaq mb-4">
+                    Implanter un réseau de centres tarmaq dans les cinq principales villes suisses : <strong>Genève, Lausanne, Zurich, Bâle et Berne</strong>.
+                </p>
+                <div class="highlight-box">
+                    <p class="body-tarmaq mb-2"><strong>Budget global d'expansion :</strong> 1'450'000 CHF (290'000 CHF par centre)</p>
+                    <p class="body-tarmaq"><strong>Calendrier :</strong> 2025-2030 avec interconnexion finale des centres</p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Calendrier de déploiement</h3>
+                    <div class="space-y-4">
+                        <div class="timeline-item">
+                            <div>
+                                <div class="font-semibold tarmaq-red">2025</div>
+                                <div class="body-tarmaq">Lancement pilote à Genève (opérationnel)</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div>
+                                <div class="font-semibold tarmaq-red">2026</div>
+                                <div class="body-tarmaq">Ouverture Lausanne + coordination nationale</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div>
+                                <div class="font-semibold tarmaq-red">2027</div>
+                                <div class="body-tarmaq">Déploiement à Zurich</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div>
+                                <div class="font-semibold tarmaq-red">2028</div>
+                                <div class="body-tarmaq">Déploiement à Bâle</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div>
+                                <div class="font-semibold tarmaq-red">2029</div>
+                                <div class="body-tarmaq">Déploiement à Berne</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div>
+                                <div class="font-semibold tarmaq-red">2030</div>
+                                <div class="body-tarmaq">Interconnexion & projets nationaux</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Modèle économique par centre</h3>
+                    <div class="space-y-2 body-tarmaq">
+                        <div class="flex justify-between">
+                            <span>Loyer annuel</span>
+                            <span class="font-semibold">30'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Aménagement</span>
+                            <span class="font-semibold">20'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Équipement IT & IA</span>
+                            <span class="font-semibold">15'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Coordinateur</span>
+                            <span class="font-semibold">65'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Stagiaires (2)</span>
+                            <span class="font-semibold">30'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Apprentis (3)</span>
+                            <span class="font-semibold">60'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Communication</span>
+                            <span class="font-semibold">40'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Mentors & experts</span>
+                            <span class="font-semibold">30'000 CHF</span>
+                        </div>
+                        <hr class="my-3">
+                        <div class="flex justify-between font-bold tarmaq-red">
+                            <span>Total par centre</span>
+                            <span>290'000 CHF</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact attendu -->
+        <section class="mb-12">
+            <h2 class="h2-tarmaq mb-6">Impact attendu</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card-tarmaq text-center">
+                    <i class="fas fa-users text-4xl tarmaq-red mb-4"></i>
+                    <h3 class="h3-tarmaq text-lg mb-2">Impact social</h3>
+                    <ul class="body-tarmaq text-left space-y-1">
+                        <li>• Centaines de jeunes formés</li>
+                        <li>• Réduction du décrochage</li>
+                        <li>• Inclusion intergénérationnelle</li>
+                        <li>• Renforcement du lien social</li>
+                    </ul>
+                </div>
+                <div class="card-tarmaq text-center">
+                    <i class="fas fa-briefcase text-4xl tarmaq-red mb-4"></i>
+                    <h3 class="h3-tarmaq text-lg mb-2">Impact économique</h3>
+                    <ul class="body-tarmaq text-left space-y-1">
+                        <li>• 6 emplois créés par centre</li>
+                        <li>• 30 emplois au niveau national</li>
+                        <li>• Synergies entreprises-jeunes</li>
+                        <li>• Dynamique économique locale</li>
+                    </ul>
+                </div>
+                <div class="card-tarmaq text-center">
+                    <i class="fas fa-graduation-cap text-4xl tarmaq-red mb-4"></i>
+                    <h3 class="h3-tarmaq text-lg mb-2">Impact éducatif</h3>
+                    <ul class="body-tarmaq text-left space-y-1">
+                        <li>• Compétences numériques</li>
+                        <li>• Éducation non formelle</li>
+                        <li>• Parcours alternatifs</li>
+                        <li>• Préparation aux métiers futurs</li>
+                    </ul>
+                </div>
+                <div class="card-tarmaq text-center">
+                    <i class="fas fa-globe text-4xl tarmaq-red mb-4"></i>
+                    <h3 class="h3-tarmaq text-lg mb-2">Ouverture internationale</h3>
+                    <ul class="body-tarmaq text-left space-y-1">
+                        <li>• Mobilité facilitée</li>
+                        <li>• Voyages éducatifs</li>
+                        <li>• Échanges interculturels</li>
+                        <li>• Réseau européen</li>
+                    </ul>
+                </div>
+                <div class="card-tarmaq text-center">
+                    <i class="fas fa-rocket text-4xl tarmaq-red mb-4"></i>
+                    <h3 class="h3-tarmaq text-lg mb-2">Innovation</h3>
+                    <ul class="body-tarmaq text-left space-y-1">
+                        <li>• Serveur IA local sécurisé</li>
+                        <li>• Expérimentation tech</li>
+                        <li>• Hackathons réguliers</li>
+                        <li>• Solutions créatives</li>
+                    </ul>
+                </div>
+                <div class="card-tarmaq text-center">
+                    <i class="fas fa-heart text-4xl tarmaq-red mb-4"></i>
+                    <h3 class="h3-tarmaq text-lg mb-2">Bien-être</h3>
+                    <ul class="body-tarmaq text-left space-y-1">
+                        <li>• Environnement bienveillant</li>
+                        <li>• Accompagnement personnalisé</li>
+                        <li>• Confiance en soi</li>
+                        <li>• Projection dans l'avenir</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendrier de mise en œuvre -->
+        <section class="mb-12">
+            <h2 class="h2-tarmaq mb-6">Calendrier de mise en œuvre - Genève</h2>
+            <div class="card-tarmaq">
+                <div class="space-y-6">
+                    <div class="timeline-item">
+                        <div>
+                            <div class="font-semibold tarmaq-red">Mai - Août 2025</div>
+                            <div class="body-tarmaq">Recherche et acquisition du local</div>
+                            <div class="text-sm text-gray-600 mt-1">Identification, négociation et finalisation de l'achat</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div>
+                            <div class="font-semibold tarmaq-red">Juillet - Août 2025</div>
+                            <div class="body-tarmaq">Recrutement de l'équipe</div>
+                            <div class="text-sm text-gray-600 mt-1">Sélection du coordinateur, stagiaires et apprentis</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div>
+                            <div class="font-semibold tarmaq-red">Septembre 2025</div>
+                            <div class="body-tarmaq">Aménagement et installation</div>
+                            <div class="text-sm text-gray-600 mt-1">Travaux, équipements IT, serveur IA, mobilier</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div>
+                            <div class="font-semibold tarmaq-red">Octobre 2025</div>
+                            <div class="body-tarmaq">Lancement du lieu et des activités</div>
+                            <div class="text-sm text-gray-600 mt-1">Ouverture officielle, premiers ateliers</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div>
+                            <div class="font-semibold tarmaq-red">Novembre - Décembre 2025</div>
+                            <div class="body-tarmaq">Premiers événements et voyages éducatifs</div>
+                            <div class="text-sm text-gray-600 mt-1">Hackathons, ateliers IA, mobilité internationale</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div>
+                            <div class="font-semibold tarmaq-red">Mars 2026</div>
+                            <div class="body-tarmaq">Bilan intermédiaire</div>
+                            <div class="text-sm text-gray-600 mt-1">Évaluation, ajustements, préparation expansion</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Innovations spécifiques -->
+        <section class="mb-12">
+            <h2 class="h2-tarmaq mb-6">Innovations spécifiques</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Serveur IA local et sécurisé</h3>
+                    <p class="body-tarmaq mb-4">
+                        Mise en place d'un serveur IA local garantissant la <strong>protection des données</strong> et la <strong>souveraineté numérique</strong>.
+                    </p>
+                    <ul class="body-tarmaq space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-shield-alt text-green-600 mr-3 mt-1"></i>
+                            Formation en toute sécurité
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-handshake text-green-600 mr-3 mt-1"></i>
+                            Co-développement avec entreprises partenaires
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-flask text-green-600 mr-3 mt-1"></i>
+                            Expérimentation technologique confiante
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-flag text-green-600 mr-3 mt-1"></i>
+                            Souveraineté des données suisses
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Approche intergénérationnelle</h3>
+                    <p class="body-tarmaq mb-4">
+                        Ateliers croisés entre <strong>jeunes et seniors</strong> pour démocratiser l'usage de l'IA et favoriser la transmission de savoirs.
+                    </p>
+                    <ul class="body-tarmaq space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-exchange-alt tarmaq-red mr-3 mt-1"></i>
+                            Transmission bidirectionnelle
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-users tarmaq-red mr-3 mt-1"></i>
+                            Renforcement du lien social
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-lightbulb tarmaq-red mr-3 mt-1"></i>
+                            Démocratisation numérique
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-heart tarmaq-red mr-3 mt-1"></i>
+                            Inclusion et solidarité
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Modèle coopératif local</h3>
+                    <p class="body-tarmaq mb-4">
+                        tarmaq s'ancre dans son territoire avec des <strong>synergies fortes</strong> entre écoles, entreprises, institutions et associations.
+                    </p>
+                    <ul class="body-tarmaq space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-network-wired tarmaq-red mr-3 mt-1"></i>
+                            Écosystème collaboratif
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-building tarmaq-red mr-3 mt-1"></i>
+                            Partenariats entreprises
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-university tarmaq-red mr-3 mt-1"></i>
+                            Liens avec l'éducation formelle
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-hands-helping tarmaq-red mr-3 mt-1"></i>
+                            Dynamique gagnant-gagnant
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card-tarmaq">
+                    <h3 class="h3-tarmaq mb-4">Nouveau modèle éducatif</h3>
+                    <p class="body-tarmaq mb-4">
+                        Création d'un modèle d'<strong>éducation non formelle</strong> à la croisée de l'innovation, de l'action sociale et de la culture.
+                    </p>
+                    <ul class="body-tarmaq space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-route tarmaq-red mr-3 mt-1"></i>
+                            Parcours alternatifs
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-tools tarmaq-red mr-3 mt-1"></i>
+                            Apprentissage par la pratique
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star tarmaq-red mr-3 mt-1"></i>
+                            Innovation pédagogique
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-seedling tarmaq-red mr-3 mt-1"></i>
+                            Développement personnel
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion et appel à l'action -->
+        <section class="mb-12">
+            <div class="card-tarmaq bg-gradient-to-r from-red-50 to-red-100 border-2 border-tarmaq-red">
+                <h2 class="h2-tarmaq mb-4 text-center">tarmaq : Un tremplin pour l'avenir de la jeunesse</h2>
+                <p class="body-tarmaq text-center mb-6 text-lg">
+                    Le projet tarmaq représente une opportunité unique de créer un impact durable sur la jeunesse genevoise et suisse, en offrant des outils concrets pour naviguer dans le monde de demain.
+                </p>
+                
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold tarmaq-red mb-2">2025</div>
+                        <div class="body-tarmaq font-semibold">Lancement à Genève</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold tarmaq-red mb-2">2030</div>
+                        <div class="body-tarmaq font-semibold">Réseau national</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold tarmaq-red mb-2">∞</div>
+                        <div class="body-tarmaq font-semibold">Impact générationnel</div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <p class="body-tarmaq mb-4">
+                        <strong>Ensemble, construisons un espace où chaque jeune peut découvrir son potentiel, développer ses compétences et construire son avenir.</strong>
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <button class="btn-primary-tarmaq">
+                            <i class="fas fa-heart mr-2"></i>Soutenir le projet
+                        </button>
+                        <button class="btn-secondary-tarmaq">
+                            <i class="fas fa-handshake mr-2"></i>Devenir partenaire
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t-2 border-tarmaq-red mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="logo-container mb-4">
+                        <div class="tarmaq-logo" style="width: 40px; height: 40px;"></div>
+                        <div class="font-bold text-xl tarmaq-red">tarmaq</div>
+                    </div>
+                    <p class="body-tarmaq text-gray-600">
+                        Association Perspectives Jeunesse<br>
+                        Genève, Suisse
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 tarmaq-red">Contact</h4>
+                    <p class="body-tarmaq text-gray-600">
+                        <i class="fas fa-envelope mr-2"></i><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87e4e8e9f3e6e4f3c7f3e6f5eae6f6a9e4ef">[email&#160;protected]</a><br>
+                        <i class="fas fa-globe mr-2"></i>www.tarmaq.ch
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 tarmaq-red">Suivez-nous</h4>
+                    <div class="flex space-x-4">
+                        <i class="fab fa-linkedin text-2xl tarmaq-red cursor-pointer hover:text-red-700"></i>
+                        <i class="fab fa-instagram text-2xl tarmaq-red cursor-pointer hover:text-red-700"></i>
+                        <i class="fab fa-twitter text-2xl tarmaq-red cursor-pointer hover:text-red-700"></i>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-6 border-tarmaq-red-lightest">
+            <div class="text-center body-tarmaq text-gray-600">
+                <p>&copy; 2024 tarmaq - Association Perspectives Jeunesse. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"97339d905cbfa032","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.8.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDj7Dq1WhdjgcYgsoylAFSlhpEFNh0sqJb9GD4suhSfFu37diLyYnaEBNPtaD7imFG5aUy%2BW5Eq47CEQ0xn2X8A9IhLBiZE%2F3NwD50HeCQZ9NRV8f9drFHSWsWHLBR93sCrHZyAcKS9x%2B7pR2AFoqYZ2XS7AVpKX%2Fq8v11GUmOgm6Kfl%2FxuyqJuagazayKtjTluwPITbjac8UCKuDxYTGuJjR%2BaLZ9SUzmAXBkPfaJS7uO3PQgA47XKwIArnRKS9eHEVJgFU%2FV20atuDqybFjsRZvfresCv1IE2%2BaQtVmZkSjUd1mIa0XYwLlWopMIuc5D%2Bpa25jv%2BoJshavYrmdZWBKMmKB481R4xt5wYHls4sDM9C1h3CjmRLcEGq4r0cpsahcIXDbRQ8Zl%2F0K%2FWgzXUev%2BAVhnC7rnIVHv%2BbEHIIN6IUTaR52qWUPKSyGBi6Udz%2FJyWXWQIIaPB1peSfEwJpDK3EvYIZrjEVJ276cTMgQfpLBqhgsgVIuBH9o4QzdfI75Nse%2BBuMZ9yvwKYI9Zh7I%3D";
+        window.__genspark_locale = "fr-FR";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDj7Dq1WhdjgcYgsoylAFSlhpEFNh0sqJb9GD4suhSfFu37diLyYnaEBNPtaD7imFG5aUy+W5Eq47CEQ0xn2X8A9IhLBiZE/3NwD50HeCQZ9NRV8f9drFHSWsWHLBR93sCrHZyAcKS9x+7pR2AFoqYZ2XS7AVpKX/q8v11GUmOgm6Kfl/xuyqJuagazayKtjTluwPITbjac8UCKuDxYTGuJjR+aLZ9SUzmAXBkPfaJS7uO3PQgA47XKwIArnRKS9eHEVJgFU/V20atuDqybFjsRZvfresCv1IE2+aQtVmZkSjUd1mIa0XYwLlWopMIuc5D+pa25jv+oJshavYrmdZWBKMmKB481R4xt5wYHls4sDM9C1h3CjmRLcEGq4r0cpsahcIXDbRQ8Zl/0K/WgzXUev+AVhnC7rnIVHv+bEHIIN6IUTaR52qWUPKSyGBi6Udz/JyWXWQIIaPB1peSfEwJpDK3EvYIZrjEVJ276cTMgQfpLBqhgsgVIuBH9o4QzdfI75Nse+BuMZ9yvwKYI9Zh7I=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

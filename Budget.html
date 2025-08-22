@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget tarmaq 2025-2028 - Financement avec apport en nature</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --tarmaq-red: #E30007;
+            --tarmaq-red-light: #F4999C;
+            --tarmaq-red-lighter: #FCEE66;
+        }
+        
+        .tarmaq-bg-primary { background-color: var(--tarmaq-red); }
+        .tarmaq-text-primary { color: var(--tarmaq-red); }
+        .tarmaq-border-primary { border-color: var(--tarmaq-red); }
+        
+        .tarmaq-button {
+            background-color: var(--tarmaq-red);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .tarmaq-button:hover {
+            background-color: #CC0006;
+            transform: translateY(-1px);
+        }
+        
+        .tarmaq-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(227, 0, 7, 0.1);
+            border: 1px solid rgba(227, 0, 7, 0.1);
+        }
+        
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .budget-item:last-child {
+            border-bottom: none;
+        }
+        
+        .nature-badge {
+            background: linear-gradient(135deg, var(--tarmaq-red), #FF4444);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        @media print {
+            body { print-color-adjust: exact; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="tarmaq-bg-primary text-white p-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center space-x-4 mb-4">
+                <div class="bg-white p-3 rounded-lg">
+                    <svg width="40" height="40" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0h20v20H10L20 30h10v10H0V0z" fill="#E30007"/>
+                        <text x="35" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#E30007">tarmaq</text>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold">Budget tarmaq 2025-2028</h1>
+                    <p class="text-red-100 text-lg">Plan de financement avec apport en nature</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto p-6 space-y-8">
+        
+        <!-- Résumé exécutif -->
+        <section class="tarmaq-card">
+            <h2 class="text-2xl font-bold tarmaq-text-primary mb-6 flex items-center">
+                <i class="fas fa-chart-pie mr-3"></i>
+                Résumé budgétaire
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-3xl font-bold tarmaq-text-primary">971'000</div>
+                    <div class="text-gray-600 font-medium">CHF sur 3 ans</div>
+                    <div class="text-sm text-gray-500 mt-1">Budget total</div>
+                </div>
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-3xl font-bold tarmaq-text-primary">2025-2027</div>
+                    <div class="text-gray-600 font-medium">Période d'activité</div>
+                    <div class="text-sm text-gray-500 mt-1">3 années complètes</div>
+                </div>
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-3xl font-bold tarmaq-text-primary">6</div>
+                    <div class="text-gray-600 font-medium">Emplois créés</div>
+                    <div class="text-sm text-gray-500 mt-1">1 employé, 2 stagiaires, 3 apprentis</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plan de financement -->
+        <section class="tarmaq-card">
+            <h2 class="text-2xl font-bold tarmaq-text-primary mb-6 flex items-center">
+                <i class="fas fa-handshake mr-3"></i>
+                Plan de financement détaillé
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <canvas id="financementChart" style="height: 400px;"></canvas>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold text-blue-800">Financement public (20%)</h3>
+                            <span class="font-bold text-blue-800">194'200 CHF</span>
+                        </div>
+                        <ul class="text-sm text-blue-700 space-y-1">
+                            <li>• Ville de Genève</li>
+                            <li>• Canton de Genève</li>
+                            <li>• Confédération suisse</li>
+                            <li>• Autres institutions publiques</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold text-green-800">Fondations & Entreprises (60%)</h3>
+                            <span class="font-bold text-green-800">582'600 CHF</span>
+                        </div>
+                        <ul class="text-sm text-green-700 space-y-1">
+                            <li>• Fondations privées (350'000 CHF)</li>
+                            <li>• Entreprises partenaires (150'000 CHF)</li>
+                            <li>• Mécénat d'entreprise (82'600 CHF)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-red-50 p-4 rounded-lg border-l-4" style="border-color: var(--tarmaq-red);">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold tarmaq-text-primary">Perspectives Jeunesse (20%)</h3>
+                            <div class="flex items-center space-x-2">
+                                <span class="font-bold tarmaq-text-primary">194'200 CHF</span>
+                                <span class="nature-badge">100% en nature</span>
+                            </div>
+                        </div>
+                        <div class="text-sm space-y-1" style="color: #B91C1C;">
+                            <p class="font-medium">Apport entièrement en nature comprenant :</p>
+                            <ul class="ml-4 space-y-1">
+                                <li>• Expertise et savoir-faire associatif</li>
+                                <li>• Bénévolat qualifié (direction, conseil)</li>
+                                <li>• Accompagnement et coordination de projet</li>
+                                <li>• Réseau et partenariats établis</li>
+                                <li>• Locaux temporaires et ressources logistiques</li>
+                                <li>• Formation et encadrement</li>
+                                <li>• Suivi administratif et légal</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Détail budgétaire par année -->
+        <section class="tarmaq-card">
+            <h2 class="text-2xl font-bold tarmaq-text-primary mb-6 flex items-center">
+                <i class="fas fa-calendar-alt mr-3"></i>
+                Répartition budgétaire par année
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Année 1 -->
+                <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold tarmaq-text-primary mb-4">2025 - Année 1</h3>
+                    <div class="space-y-3">
+                        <div class="budget-item">
+                            <span class="text-gray-700">Investissement initial</span>
+                            <span class="font-bold">50'000 CHF</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Loyer (12 mois)</span>
+                            <span class="font-bold">72'000 CHF</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Salaires équipe</span>
+                            <span class="font-bold">155'000 CHF</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Outils & plateforme</span>
+                            <span class="font-bold">30'000 CHF</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Événements & comm.</span>
+                            <span class="font-bold">50'000 CHF</span>
+                        </div>
+                        <div class="border-t-2 pt-3 mt-3">
+                            <div class="budget-item">
+                                <span class="text-lg font-bold tarmaq-text-primary">Total Année 1</span>
+                                <span class="text-lg font-bold tarmaq-text-primary">357'000 CHF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Année 2 -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">2026 - Année 2</h3>
+                    <div class="space-y-3">
+                        <div class="budget-item">
+                            <span class="text-gray-700">Loyer (12 mois)</span>
+                            <span class="font-bold">72'000 CHF</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Salaires équipe</span>
+                            <span class="font-bold">155'000 CHF</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Outils & plateforme</span>
+                            <span class="font-bold">30'000 CHF</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Événements & comm.</span>
+                            <span class="font-bold">50'000 CHF</span>
+                        </div>
+                        <div class="border-t-2 pt-3 mt-3">
+                            <div class="budget-item">
+                                <span class="text-lg font-bold text-blue-800">Total Année 2</span>
+                                <span class="text-lg font-bold text-blue-800">307'000 CHF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Année 3 -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-green-800 mb-4">2027 - Année 3</h3>
+                    <div class="space-y-3">
+                        <div class="budget-item">
+                            <span class="text-gray-700">Loyer (12 mois)</span>
+                            <span class="font-bold">72'000 CHF</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Salaires équipe</span>
+                            <span class="font-bold">155'000 CHF</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Outils & plateforme</span>
+                            <span class="font-bold">30'000 CHF</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Événements & comm.</span>
+                            <span class="font-bold">50'000 CHF</span>
+                        </div>
+                        <div class="border-t-2 pt-3 mt-3">
+                            <div class="budget-item">
+                                <span class="text-lg font-bold text-green-800">Total Année 3</span>
+                                <span class="text-lg font-bold text-green-800">307'000 CHF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Détail de l'apport en nature -->
+        <section class="tarmaq-card">
+            <h2 class="text-2xl font-bold tarmaq-text-primary mb-6 flex items-center">
+                <i class="fas fa-hands-helping mr-3"></i>
+                Détail de l'apport en nature - Perspectives Jeunesse
+            </h2>
+            
+            <div class="bg-red-50 p-6 rounded-lg border-l-4" style="border-color: var(--tarmaq-red);">
+                <div class="mb-4">
+                    <h3 class="text-xl font-bold tarmaq-text-primary mb-2">Valorisation : 194'200 CHF (20% du budget total)</h3>
+                    <p class="text-gray-700">L'association Perspectives Jeunesse apporte une contribution significative entièrement sous forme d'apports en nature, équivalant à 20% du budget total du projet.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <h4 class="font-bold tarmaq-text-primary text-lg">Expertise et encadrement</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle tarmaq-text-primary mt-1 mr-2"></i>
+                                <span>Direction de projet et coordination générale (équivalent 0.5 ETP sur 3 ans)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle tarmaq-text-primary mt-1 mr-2"></i>
+                                <span>Accompagnement pédagogique et formation des équipes</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle tarmaq-text-primary mt-1 mr-2"></i>
+                                <span>Conseil stratégique et développement du projet</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle tarmaq-text-primary mt-1 mr-2"></i>
+                                <span>Expertise en accompagnement jeunesse et insertion professionnelle</span>
+                            </li>
+                        </ul>
+                        
+                        <h4 class="font-bold tarmaq-text-primary text-lg mt-6">Réseau et partenariats</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle tarmaq-text-primary mt-1 mr-2"></i>
+                                <span>Réseau établi d'entreprises partenaires</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle tarmaq-text-primary mt-1 mr-2"></i>
+                                <span>Contacts institutionnels (écoles, institutions publiques)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle tarmaq-text-primary mt-1 mr-2"></i>
+                                <span>Mentors et experts du secteur technologique</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h4 class="font-bold tarmaq-text-primary text-lg">Ressources logistiques</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle tarmaq-text-primary mt-1 mr-2"></i>
+                                <span>Locaux temporaires pour les premières activités</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle tarmaq-text-primary mt-1 mr-2"></i>
+                                <span>Matériel de bureau et équipements de base</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle tarmaq-text-primary mt-1 mr-2"></i>
+                                <span>Infrastructure administrative et juridique</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle tarmaq-text-primary mt-1 mr-2"></i>
+                                <span>Suivi comptable et gestion financière</span>
+                            </li>
+                        </ul>
+                        
+                        <h4 class="font-bold tarmaq-text-primary text-lg mt-6">Valorisation par année</h4>
+                        <div class="space-y-3 bg-white p-4 rounded-lg">
+                            <div class="flex justify-between">
+                                <span>Année 1 (2025)</span>
+                                <span class="font-bold">71'400 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Année 2 (2026)</span>
+                                <span class="font-bold">61'400 CHF</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Année 3 (2027)</span>
+                                <span class="font-bold">61'400 CHF</span>
+                            </div>
+                            <div class="border-t pt-2 flex justify-between font-bold tarmaq-text-primary">
+                                <span>Total 3 ans</span>
+                                <span>194'200 CHF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Graphique évolution budgétaire -->
+        <section class="tarmaq-card">
+            <h2 class="text-2xl font-bold tarmaq-text-primary mb-6 flex items-center">
+                <i class="fas fa-chart-line mr-3"></i>
+                Évolution budgétaire sur 3 ans
+            </h2>
+            <div style="height: 400px;">
+                <canvas id="evolutionChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Stratégie de financement -->
+        <section class="tarmaq-card">
+            <h2 class="text-2xl font-bold tarmaq-text-primary mb-6 flex items-center">
+                <i class="fas fa-lightbulb mr-3"></i>
+                Stratégie de recherche de financement
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-blue-800 text-lg mb-4">Financement public</h3>
+                    <p class="text-sm text-blue-700 mb-4">Démarches auprès des institutions publiques genevoises et suisses</p>
+                    <ul class="text-sm space-y-2 text-blue-600">
+                        <li>• Dépôt de demandes de subvention</li>
+                        <li>• Présentation aux commissions dédiées</li>
+                        <li>• Partenariat avec politiques jeunesse</li>
+                        <li>• Valorisation de l'impact social</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-green-800 text-lg mb-4">Fondations & Entreprises</h3>
+                    <p class="text-sm text-green-700 mb-4">Approche ciblée des fondations et mécénat d'entreprise</p>
+                    <ul class="text-sm space-y-2 text-green-600">
+                        <li>• Fondations axées sur l'éducation</li>
+                        <li>• Entreprises tech et innovation</li>
+                        <li>• Partenariats stratégiques</li>
+                        <li>• Contreparties et visibilité</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-red-50 p-6 rounded-lg">
+                    <h3 class="font-bold tarmaq-text-primary text-lg mb-4">Apport associatif</h3>
+                    <p class="text-sm mb-4" style="color: #B91C1C;">Mobilisation des ressources internes et du réseau</p>
+                    <ul class="text-sm space-y-2" style="color: #DC2626;">
+                        <li>• Valorisation de l'expertise interne</li>
+                        <li>• Mobilisation du réseau de bénévoles</li>
+                        <li>• Mutualisation des ressources</li>
+                        <li>• Optimisation des coûts</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-600 py-8 border-t">
+            <p class="mb-2"><strong>Association Perspectives Jeunesse</strong> - Projet tarmaq</p>
+            <p class="text-sm">Budget prévisionnel 2025-2028 | Document généré le <?= date('d/m/Y') ?></p>
+        </footer>
+    </div>
+
+    <script>
+        // Graphique de répartition du financement
+        const ctxFinancement = document.getElementById('financementChart').getContext('2d');
+        new Chart(ctxFinancement, {
+            type: 'doughnut',
+            data: {
+                labels: ['Financement public (20%)', 'Fondations & Entreprises (60%)', 'Perspectives Jeunesse - Nature (20%)'],
+                datasets: [{
+                    data: [194200, 582600, 194200],
+                    backgroundColor: ['#3B82F6', '#10B981', '#E30007'],
+                    borderWidth: 3,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                            font: { size: 12, weight: '600' }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + new Intl.NumberFormat('fr-CH').format(context.raw) + ' CHF';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Graphique d'évolution budgétaire
+        const ctxEvolution = document.getElementById('evolutionChart').getContext('2d');
+        new Chart(ctxEvolution, {
+            type: 'bar',
+            data: {
+                labels: ['2025 - Année 1', '2026 - Année 2', '2027 - Année 3'],
+                datasets: [
+                    {
+                        label: 'Financement public',
+                        data: [71400, 61400, 61400],
+                        backgroundColor: '#3B82F6',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Fondations & Entreprises',
+                        data: [214200, 184200, 184200],
+                        backgroundColor: '#10B981',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Perspectives Jeunesse (nature)',
+                        data: [71400, 61400, 61400],
+                        backgroundColor: '#E30007',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { 
+                        stacked: true,
+                        grid: { display: false }
+                    },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return new Intl.NumberFormat('fr-CH').format(value) + ' CHF';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20,
+                            font: { size: 12, weight: '600' }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + new Intl.NumberFormat('fr-CH').format(context.raw) + ' CHF';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
