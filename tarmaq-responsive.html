@@ -333,9 +333,28 @@
               <div class="flex items-center justify-between px-6 py-4">
                 <div class="flex items-center gap-3">
                   <img src="src/assets/logo.png" alt="tarmaq" />
-                  <span class="text-xs bg-brand text-white px-2 py-1 rounded-full">Responsive</span>
                 </div>
                 <div class="flex items-center gap-2">
+                  <!-- View Switcher Button -->
+                  <button
+                    id="mobileViewSwitcher"
+                    class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-ink-2"
+                    title="Passer à la vue desktop"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                  </button>
                   <!-- Mobile Menu Button -->
                   <button id="mobileMenuBtn" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                     <svg class="w-6 h-6 text-ink-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -661,7 +680,6 @@
           <!-- Logo -->
           <div class="flex items-center gap-4">
             <img src="src/assets/logo.png" alt="tarmaq" class="h-12 w-auto" />
-            <span class="text-sm bg-brand text-white px-3 py-1 rounded-full font-medium">Responsive</span>
           </div>
 
           <!-- Desktop Navigation -->
@@ -1455,12 +1473,35 @@
         });
       }
 
+      // Mobile view switcher functionality
+      const mobileViewSwitcher = document.getElementById('mobileViewSwitcher');
+      if (mobileViewSwitcher) {
+        mobileViewSwitcher.addEventListener('click', () => {
+          // Store current view preference
+          localStorage.setItem('tarmaq-view', 'desktop');
+          // Show desktop layout
+          document.querySelector('.mobile-frame').style.display = 'none';
+          document.querySelector('.desktop-layout').style.display = 'block';
+        });
+      }
+
+      // Desktop view switcher functionality
+      const viewSwitcher = document.getElementById('viewSwitcher');
+      if (viewSwitcher) {
+        viewSwitcher.addEventListener('click', () => {
+          // Store current view preference
+          localStorage.setItem('tarmaq-view', 'mobile');
+          // Show mobile layout
+          document.querySelector('.desktop-layout').style.display = 'none';
+          document.querySelector('.mobile-frame').style.display = 'block';
+        });
+      }
+
       // Check for saved view preference on page load
       window.addEventListener('load', () => {
         const savedView = localStorage.getItem('tarmaq-view');
         if (savedView === 'mobile') {
           // User prefers mobile view, show a subtle indicator
-          const viewSwitcher = document.getElementById('viewSwitcher');
           if (viewSwitcher) {
             viewSwitcher.classList.add('ring-2', 'ring-brand/20');
           }
