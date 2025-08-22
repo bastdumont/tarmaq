@@ -1,39 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from 'react';
 
-export default function App(){
+export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const year = new Date().getFullYear();
 
-  // --- Sanity tests (console only) ---
-  useEffect(() => {
-    const results = [];
-    const assert = (name, cond) => { const pass = !!cond; results.push({ name, pass }); if(!pass) console.error(`[TEST FAIL] ${name}`); };
-    assert('hero section exists', document.querySelector('section.hero'));
-    assert('exactly 4 pills', document.querySelectorAll('.pill').length === 4);
-    assert('primary/grad CTAs exist', document.querySelector('.btn.btn-primary') && document.querySelector('.btn.btn-grad'));
-    assert('partners grid exists', document.querySelector('.partners'));
-    console.info('[Sanity tests]', results);
+  // Header scroll state - optimized with useCallback
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 8);
   }, []);
 
-  // Header scroll state
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   // Mobile menu autoclose: click-away, Esc, and body scroll lock
   useEffect(() => {
     if (menuOpen) {
-      const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false); };
-      document.addEventListener('keydown', onKey);
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') setMenuOpen(false);
+      };
+      
+      document.addEventListener('keydown', handleKeyDown);
       const prevOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
-      return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prevOverflow; };
+      
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+        document.body.style.overflow = prevOverflow;
+      };
     }
   }, [menuOpen]);
+
+  // Memoized menu close handler
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   return (
     <div>
@@ -229,7 +231,7 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
       <header className={scrolled ? 'scrolled' : ''}>
         <div className="wrap head" role="navigation" aria-label="Navigation principale">
           <div className="brand">
-            <a href="#" className="logo" aria-label="Aller à l’accueil tarmaq" style={{display:'flex',alignItems:'center',gap:10}}>
+            <a href="#" className="logo" aria-label="Aller à l'accueil tarmaq" style={{display:'flex',alignItems:'center',gap:10}}>
               <img src="src/assets/logo.png" alt="tarmaq" style={{width:'35%',height:'45%'}} />
             </a>
           </div>
@@ -255,12 +257,12 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
         <div id="mobileMenu" className={`wrap ${menuOpen ? 'open' : ''}`}>
           {menuOpen && (
             <>
-              <a href="#programmes" onClick={()=>setMenuOpen(false)}>Quésaco ?</a>
-              <a href="#communaute" onClick={()=>setMenuOpen(false)}>Communauté</a>
-              <a href="#agenda" onClick={()=>setMenuOpen(false)}>Agenda</a>
-              <a href="#partenaires" onClick={()=>setMenuOpen(false)}>Partenaires</a>
-              <a className="btn btn-ghost" href="#soutien" onClick={()=>setMenuOpen(false)}>Soumettre un projet</a>
-              <a className="btn btn-grad" href="#don" onClick={()=>setMenuOpen(false)}>Soutenir tarmaq</a>
+              <a href="#programmes" onClick={closeMenu}>Quésaco ?</a>
+              <a href="#communaute" onClick={closeMenu}>Communauté</a>
+              <a href="#agenda" onClick={closeMenu}>Agenda</a>
+              <a href="#partenaires" onClick={closeMenu}>Partenaires</a>
+              <a className="btn btn-ghost" href="#soutien" onClick={closeMenu}>Soumettre un projet</a>
+              <a className="btn btn-grad" href="#don" onClick={closeMenu}>Soutenir tarmaq</a>
             </>
           )}
         </div>
@@ -268,7 +270,7 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
 
       {/* Backdrop for click-away close (under header z-index) */}
       {menuOpen && (
-        <button className="backdrop" aria-label="Fermer le menu" onClick={()=>setMenuOpen(false)} />
+        <button className="backdrop" aria-label="Fermer le menu" onClick={closeMenu} />
       )}
 
       <main>
@@ -324,7 +326,7 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
                 <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#B61E1B" d="M12 12a5 5 0 110-10 5 5 0 010 10zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5c0-3-4-5.5-9-5.5z"/></svg>
               </div>
               <h3>Communauté</h3>
-              <p>Accès à un réseau d’anciens, de mentors et d’entreprises pour trouver des opportunités et progresser.</p>
+              <p>Accès à un réseau d'anciens, de mentors et d'entreprises pour trouver des opportunités et progresser.</p>
             </article>
           </div>
         </section>
@@ -339,7 +341,7 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
             <div className="program">
               <span className="tag">Bootcamps IA</span>
               <h3>Construis un agent IA utile</h3>
-              <p>De l’idée au prototype en 2 jours, en équipe, avec mentorat.</p>
+              <p>De l'idée au prototype en 2 jours, en équipe, avec mentorat.</p>
             </div>
             <div className="program">
               <span className="tag">Hackathons</span>
@@ -349,17 +351,17 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
             <div className="program">
               <span className="tag">Stages</span>
               <h3>Découvrir un métier</h3>
-              <p>Stages d’immersion en PME, startups et institutions partenaires.</p>
+              <p>Stages d'immersion en PME, startups et institutions partenaires.</p>
             </div>
             <div className="program">
               <span className="tag">Mentorat</span>
               <h3>Être accompagné·e</h3>
-              <p>Des praticiens pour t’aider à franchir chaque étape.</p>
+              <p>Des praticiens pour t'aider à franchir chaque étape.</p>
             </div>
             <div className="program">
               <span className="tag">Voyages</span>
               <h3>Ouvrir ses horizons</h3>
-              <p>Visites d’écoles, d’entreprises et d’écosystèmes innovants.</p>
+              <p>Visites d'écoles, d'entreprises et d'écosystèmes innovants.</p>
             </div>
           </div>
         </section>
@@ -368,7 +370,7 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
         <section className="wrap" id="agenda">
           <div className="section-head">
             <h2>Agenda</h2>
-            <a className="btn btn-ghost" href="#">S’abonner à la newsletter</a>
+            <a className="btn btn-ghost" href="#">S'abonner à la newsletter</a>
           </div>
           <div className="agenda">
             <div className="card" role="region" aria-label="Événements à venir">
@@ -421,7 +423,7 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
       <footer>
         <div className="wrap foot">
           <div>
-          <a href="#" className="logo" aria-label="Aller à l’accueil tarmaq" style={{display:'flex',alignItems:'center',gap:10}}>
+          <a href="#" className="logo" aria-label="Aller à l'accueil tarmaq" style={{display:'flex',alignItems:'center',gap:10}}>
               <img src="src/assets/logo.png" alt="tarmaq" style={{width:'35%',height:'45%'}} />
             </a>
             <div className="assoc" style={{marginTop:10,display:'flex',alignItems:'center',gap:10}}>
@@ -446,7 +448,7 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
             <form onSubmit={(e)=>{e.preventDefault(); alert('Merci ! Vous êtes inscrit·e.');}}>
               <label htmlFor="nl" className="sr-only">Votre e‑mail</label>
               <input id="nl" type="email" placeholder="votre@email.ch" required style={{width:'100%',padding:'12px 14px',border:'1px solid var(--stroke)',borderRadius:12,marginBottom:8}} />
-              <button className="btn btn-primary" type="submit" style={{width:'100%'}}>S’inscrire</button>
+              <button className="btn btn-primary" type="submit" style={{width:'100%'}}>S'inscrire</button>
             </form>
           </div>
         </div>

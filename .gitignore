@@ -3,11 +3,13 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # Build outputs
 dist/
 build/
-*.tsbuildinfo
+*.local
 
 # Environment variables
 .env
@@ -83,10 +85,6 @@ jspm_packages/
 # Nuxt.js build / generate output
 .nuxt
 
-# Gatsby files
-.cache/
-public
-
 # Storybook build outputs
 .out
 .storybook-out
@@ -94,3 +92,6 @@ public
 # Temporary folders
 tmp/
 temp/
+
+# Production build artifacts
+*.map
