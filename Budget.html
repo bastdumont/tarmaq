@@ -519,7 +519,7 @@
         <!-- Footer -->
         <footer class="text-center text-gray-600 py-8 border-t">
             <p class="mb-2"><strong>Association Perspectives Jeunesse</strong> - Projet tarmaq</p>
-            <p class="text-sm">Budget prévisionnel 2025-2028 | Document généré le <?= date('d/m/Y') ?></p>
+            <p class="text-sm">Budget prévisionnel 2025-2028 | Document généré le <span id="currentDate"></span></p>
         </footer>
     </div>
 
@@ -622,6 +622,16 @@
                         }
                     }
                 }
+            }
+        });
+
+        // Set current date in footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentDateElement = document.getElementById('currentDate');
+            if (currentDateElement) {
+                const now = new Date();
+                const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                currentDateElement.textContent = now.toLocaleDateString('fr-FR', options);
             }
         });
     </script>
