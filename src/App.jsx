@@ -272,11 +272,11 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
-              <a href="index.html" className="font-semibold text-ink-2 hover:text-brand transition-colors">Accueil</a>
-              <a href="tarmaq-adémie/index.html" className="font-semibold text-brand">Cours Libre</a>
-              <a href="tarmaq_version_html_fondateur.html" className="font-semibold text-ink-2 hover:text-brand transition-colors">Projet</a>
-              <a href="Budget.html" className="font-semibold text-ink-2 hover:text-brand transition-colors">Budget</a>
-              <a href="tarmaq_interactive_mindmap.html" className="font-semibold text-ink-2 hover:text-brand transition-colors">Mindmap</a>
+              <a href="/" className="font-semibold text-ink-2 hover:text-brand transition-colors">Accueil</a>
+              <a href="/tarmaq-adémie" className="font-semibold text-brand">Cours Libre</a>
+              <a href="/tarmaq_version_html_fondateur.html" className="font-semibold text-ink-2 hover:text-brand transition-colors">Projet</a>
+              <a href="/Budget.html" className="font-semibold text-ink-2 hover:text-brand transition-colors">Budget</a>
+              <a href="/tarmaq_interactive_mindmap.html" className="font-semibold text-ink-2 hover:text-brand transition-colors">Mindmap</a>
             </nav>
 
             {/* CTA Buttons */}
@@ -308,11 +308,11 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
           <div className="lg:hidden bg-white border-t border-stroke">
             <div className="max-w-7xl mx-auto px-8 py-4">
               <nav className="flex flex-col space-y-4">
-                <a href="index.html" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Accueil</a>
-                <a href="tarmaq-adémie/index.html" className="font-semibold text-brand py-2">Cours Libre</a>
-                <a href="tarmaq_version_html_fondateur.html" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Projet</a>
-                <a href="Budget.html" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Budget</a>
-                <a href="tarmaq_interactive_mindmap.html" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Mindmap</a>
+                <a href="/" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Accueil</a>
+                <a href="/tarmaq-adémie" className="font-semibold text-brand py-2">Cours Libre</a>
+                <a href="/tarmaq_version_html_fondateur.html" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Projet</a>
+                <a href="/Budget.html" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Budget</a>
+                <a href="/tarmaq_interactive_mindmap.html" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Mindmap</a>
                 <div className="flex flex-col space-y-2 pt-4 border-t border-stroke">
                   <button className="btn-secondary w-full text-center">Appel à soutien</button>
                   <button className="btn-gradient w-full text-center">Faire un don</button>
@@ -478,7 +478,7 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
       <footer>
         <div className="wrap foot">
           <div>
-          <a href="#" className="logo" aria-label="Aller à l'accueil tarmaq" style={{display:'flex',alignItems:'center',gap:10}}>
+          <a href="/" className="logo" aria-label="Aller à l'accueil tarmaq" style={{display:'flex',alignItems:'center',gap:10}}>
               <img src="src/assets/logo.png" alt="tarmaq" style={{width:'35%',height:'45%'}} />
             </a>
             <div className="assoc" style={{marginTop:10,display:'flex',alignItems:'center',gap:10}}>
