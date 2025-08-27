@@ -18,18 +18,89 @@
         font-family: 'Inter', sans-serif;
       }
       .gradient-bg {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #E30007 0%, #CC0006 100%);
       }
       .code-block {
         background: #1e293b;
         color: #e2e8f0;
       }
       .prompt-box {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        background: linear-gradient(135deg, #F4999C 0%, #E30007 100%);
+      }
+
+      /* Header styles */
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.9);
+        color: #2a2a2a;
+        padding: 14px 24px;
+        border-radius: 16px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        border: 1px solid #e8e8ec;
+        cursor: pointer;
+      }
+
+      .btn-secondary:hover {
+        background: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-gradient {
+        background: linear-gradient(140deg, #F4999C, #E30007);
+        color: white;
+        padding: 14px 24px;
+        border-radius: 16px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-gradient:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(227, 0, 7, 0.25);
+      }
+
+      /* Navigation styles */
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-dropdown {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+      }
+
+      .nav-item:hover .nav-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
       }
     </style>
   </head>
   <body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-lg border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="font-semibold text-brand" style="color: #E30007;">Cours Libre</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-gray-600 hover:text-brand px-3 py-2 rounded-md text-sm font-medium transition-colors">Accueil</a>
+                        <a href="5 AI tools for marketing.html" class="text-gray-600 hover:text-brand px-3 py-2 rounded-md text-sm font-medium transition-colors">Outils IA Marketing</a>
+                        <a href="Guide Complet - 10 Nœuds Communautaires n8n Révolutionnaires.html" class="text-gray-600 hover:text-brand px-3 py-2 rounded-md text-sm font-medium transition-colors">Guide n8n</a>
+                        <a href="Guide-WordPress-IA.html" class="text-brand px-3 py-2 rounded-md text-sm font-medium" style="color: #E30007;">Guide WordPress IA</a>
+                        <a href="Analyse Vidéo - Claude Code + Playwright MCP.html" class="text-gray-600 hover:text-brand px-3 py-2 rounded-md text-sm font-medium transition-colors">Analyse Vidéo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
     <!-- Header -->
     <div class="gradient-bg text-white py-12">
       <div class="max-w-6xl mx-auto px-6">

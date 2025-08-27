@@ -87,7 +87,7 @@ Our design system is built around the tarmaq brand identity:
    - Entrepreneurship fundamentals
    - Creative and soft skills development
 
-### Content Pages (`tarmaq-adémie/`)
+### Content Pages (`tarmaq-adémie/` - Cours Libre)
 - **AI Tools for Marketing**: Practical applications and case studies
 - **Video Analysis with Claude**: AI-powered content creation
 - **n8n Community Nodes**: Workflow automation tutorials

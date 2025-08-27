@@ -133,7 +133,7 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden lg:flex items-center gap-8">
                     <a href="index.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Accueil</a>
-                    <a href="tarmaq-adémie/index.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">tarmaq-adémie</a>
+                    <a href="tarmaq-adémie/index.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Cours Libre</a>
                     <a href="tarmaq_version_html_fondateur.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Projet</a>
                     <a href="Budget.html" class="font-semibold text-brand">Budget</a>
                     <a href="tarmaq_interactive_mindmap.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Mindmap</a>
@@ -145,14 +145,38 @@
                     <button class="btn-gradient">Faire un don</button>
                 </div>
 
-                <!-- Mobile Menu Button -->
+                <!-- View Switcher and Mobile Menu Button -->
                 <div class="flex items-center gap-2">
-                    <button class="lg:hidden p-2">
+                    <!-- View Switcher Button -->
+                    <button id="viewSwitcher" class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-ink-2" title="Passer à la vue mobile">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </button>
+                    <!-- Mobile Menu Button -->
+                    <button class="lg:hidden p-2" onclick="toggleMobileMenu()">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="lg:hidden bg-white border-t border-stroke hidden">
+            <div class="max-w-7xl mx-auto px-8 py-4">
+                <nav class="flex flex-col space-y-4">
+                    <a href="index.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Accueil</a>
+                    <a href="tarmaq-adémie/index.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Cours Libre</a>
+                    <a href="tarmaq_version_html_fondateur.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Projet</a>
+                    <a href="Budget.html" class="font-semibold text-brand py-2">Budget</a>
+                    <a href="tarmaq_interactive_mindmap.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Mindmap</a>
+                    <div class="flex flex-col space-y-2 pt-4 border-t border-stroke">
+                        <button class="btn-secondary w-full text-center">Appel à soutien</button>
+                        <button class="btn-gradient w-full text-center">Faire un don</button>
+                    </div>
+                </nav>
             </div>
         </div>
     </header>
@@ -185,8 +209,8 @@
             </h2>
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="text-center p-6 bg-gray-50 rounded-lg">
-                    <div class="text-3xl font-bold tarmaq-text-primary">971'000</div>
-                    <div class="text-gray-600 font-medium">CHF sur 3 ans</div>
+                    <div class="text-3xl font-bold tarmaq-text-primary">1'150'000</div>
+                    <div class="text-gray-600 font-medium">CHF par année</div>
                     <div class="text-sm text-gray-500 mt-1">Budget total</div>
                 </div>
                 <div class="text-center p-6 bg-gray-50 rounded-lg">
@@ -216,34 +240,34 @@
                 <div class="space-y-4">
                     <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
                         <div class="flex justify-between items-center mb-2">
-                            <h3 class="font-bold text-blue-800">Financement public (20%)</h3>
-                            <span class="font-bold text-blue-800">194'200 CHF</span>
+                            <h3 class="font-bold text-blue-800">Financement public (13.0%)</h3>
+                            <span class="font-bold text-blue-800">150'000 CHF</span>
                         </div>
                         <ul class="text-sm text-blue-700 space-y-1">
-                            <li>• Ville de Genève</li>
-                            <li>• Canton de Genève</li>
-                            <li>• Confédération suisse</li>
-                            <li>• Autres institutions publiques</li>
+                            <li>• Hospice général (50'000 CHF)</li>
+                            <li>• Ville et canton de Genève (50'000 CHF)</li>
+                            <li>• Département d'instruction publique (50'000 CHF)</li>
                         </ul>
                     </div>
                     
                     <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
                         <div class="flex justify-between items-center mb-2">
-                            <h3 class="font-bold text-green-800">Fondations & Entreprises (60%)</h3>
-                            <span class="font-bold text-green-800">582'600 CHF</span>
+                            <h3 class="font-bold text-green-800">Fondations & Entreprises (56.5%)</h3>
+                            <span class="font-bold text-green-800">650'000 CHF</span>
                         </div>
                         <ul class="text-sm text-green-700 space-y-1">
-                            <li>• Fondations privées (350'000 CHF)</li>
-                            <li>• Entreprises partenaires (150'000 CHF)</li>
-                            <li>• Mécénat d'entreprise (82'600 CHF)</li>
+                            <li>• Fondations privées (400'000 CHF)</li>
+                            <li>• Loterie Romande (100'000 CHF)</li>
+                            <li>• Entreprises Membres et ONG partenaires (50'000 CHF)</li>
+                            <li>• Département cohésion sociale (50'000 CHF)</li>
                         </ul>
                     </div>
                     
                     <div class="bg-red-50 p-4 rounded-lg border-l-4" style="border-color: var(--tarmaq-red);">
                         <div class="flex justify-between items-center mb-2">
-                            <h3 class="font-bold tarmaq-text-primary">Perspectives Jeunesse (20%)</h3>
+                            <h3 class="font-bold tarmaq-text-primary">Perspectives Jeunesse (13.0%)</h3>
                             <div class="flex items-center space-x-2">
-                                <span class="font-bold tarmaq-text-primary">194'200 CHF</span>
+                                <span class="font-bold tarmaq-text-primary">150'000 CHF</span>
                                 <span class="nature-badge">100% en nature</span>
                             </div>
                         </div>
@@ -271,93 +295,80 @@
                 Répartition budgétaire par année
             </h2>
             
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Année 1 -->
+            <div class="grid md:grid-cols-1 gap-6">
+                <!-- Budget détaillé -->
                 <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold tarmaq-text-primary mb-4">2025 - Année 1</h3>
+                    <h3 class="text-xl font-bold tarmaq-text-primary mb-4">Répartition budgétaire détaillée</h3>
                     <div class="space-y-3">
                         <div class="budget-item">
-                            <span class="text-gray-700">Investissement initial</span>
-                            <span class="font-bold">50'000 CHF</span>
-                        </div>
-                        <div class="budget-item">
-                            <span class="text-gray-700">Loyer (12 mois)</span>
+                            <span class="text-gray-700">Location du local</span>
                             <span class="font-bold">72'000 CHF</span>
+                            <span class="text-sm text-gray-500">6.26%</span>
                         </div>
                         <div class="budget-item">
-                            <span class="text-gray-700">Salaires équipe</span>
-                            <span class="font-bold">155'000 CHF</span>
+                            <span class="text-gray-700">Salaires équipe opérationnelle</span>
+                            <span class="font-bold">168'000 CHF</span>
+                            <span class="text-sm text-gray-500">14.61%</span>
                         </div>
                         <div class="budget-item">
-                            <span class="text-gray-700">Outils & plateforme</span>
-                            <span class="font-bold">30'000 CHF</span>
+                            <span class="text-gray-700">Matériel informatique & Aménagement</span>
+                            <span class="font-bold">40'000 CHF</span>
+                            <span class="text-sm text-gray-500">3.48%</span>
                         </div>
                         <div class="budget-item">
-                            <span class="text-gray-700">Événements & comm.</span>
+                            <span class="text-gray-700">Développement infrastructure IA</span>
+                            <span class="font-bold">40'000 CHF</span>
+                            <span class="text-sm text-gray-500">3.48%</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Apprentissage et Stages</span>
                             <span class="font-bold">50'000 CHF</span>
+                            <span class="text-sm text-gray-500">4.35%</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Développement de la platform tarmaq</span>
+                            <span class="font-bold">30'000 CHF</span>
+                            <span class="text-sm text-gray-500">2.61%</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Organisation d'événements</span>
+                            <span class="font-bold">24'000 CHF</span>
+                            <span class="text-sm text-gray-500">2.09%</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Voyages pour les jeunes</span>
+                            <span class="font-bold">80'000 CHF</span>
+                            <span class="text-sm text-gray-500">6.96%</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Charges et frais divers</span>
+                            <span class="font-bold">12'000 CHF</span>
+                            <span class="text-sm text-gray-500">1.04%</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Programme de mentors</span>
+                            <span class="font-bold">24'000 CHF</span>
+                            <span class="text-sm text-gray-500">2.09%</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Soutien aux projets ONG et Impact</span>
+                            <span class="font-bold">150'000 CHF</span>
+                            <span class="text-sm text-gray-500">16.67%</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Création identité de marque et site</span>
+                            <span class="font-bold">10'000 CHF</span>
+                            <span class="text-sm text-gray-500">1.11%</span>
+                        </div>
+                        <div class="budget-item">
+                            <span class="text-gray-700">Fond pour acquisition du local</span>
+                            <span class="font-bold">200'000 CHF</span>
+                            <span class="text-sm text-gray-500">22.22%</span>
                         </div>
                         <div class="border-t-2 pt-3 mt-3">
                             <div class="budget-item">
-                                <span class="text-lg font-bold tarmaq-text-primary">Total Année 1</span>
-                                <span class="text-lg font-bold tarmaq-text-primary">357'000 CHF</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Année 2 -->
-                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-blue-800 mb-4">2026 - Année 2</h3>
-                    <div class="space-y-3">
-                        <div class="budget-item">
-                            <span class="text-gray-700">Loyer (12 mois)</span>
-                            <span class="font-bold">72'000 CHF</span>
-                        </div>
-                        <div class="budget-item">
-                            <span class="text-gray-700">Salaires équipe</span>
-                            <span class="font-bold">155'000 CHF</span>
-                        </div>
-                        <div class="budget-item">
-                            <span class="text-gray-700">Outils & plateforme</span>
-                            <span class="font-bold">30'000 CHF</span>
-                        </div>
-                        <div class="budget-item">
-                            <span class="text-gray-700">Événements & comm.</span>
-                            <span class="font-bold">50'000 CHF</span>
-                        </div>
-                        <div class="border-t-2 pt-3 mt-3">
-                            <div class="budget-item">
-                                <span class="text-lg font-bold text-blue-800">Total Année 2</span>
-                                <span class="text-lg font-bold text-blue-800">307'000 CHF</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Année 3 -->
-                <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-green-800 mb-4">2027 - Année 3</h3>
-                    <div class="space-y-3">
-                        <div class="budget-item">
-                            <span class="text-gray-700">Loyer (12 mois)</span>
-                            <span class="font-bold">72'000 CHF</span>
-                        </div>
-                        <div class="budget-item">
-                            <span class="text-gray-700">Salaires équipe</span>
-                            <span class="font-bold">155'000 CHF</span>
-                        </div>
-                        <div class="budget-item">
-                            <span class="text-gray-700">Outils & plateforme</span>
-                            <span class="font-bold">30'000 CHF</span>
-                        </div>
-                        <div class="budget-item">
-                            <span class="text-gray-700">Événements & comm.</span>
-                            <span class="font-bold">50'000 CHF</span>
-                        </div>
-                        <div class="border-t-2 pt-3 mt-3">
-                            <div class="budget-item">
-                                <span class="text-lg font-bold text-green-800">Total Année 3</span>
-                                <span class="text-lg font-bold text-green-800">307'000 CHF</span>
+                                <span class="text-lg font-bold tarmaq-text-primary">Total Général</span>
+                                <span class="text-lg font-bold tarmaq-text-primary">900'000 CHF</span>
                             </div>
                         </div>
                     </div>
@@ -372,10 +383,27 @@
                 Détail de l'apport en nature - Perspectives Jeunesse
             </h2>
             
+            <!-- Budget breakdown description -->
+            <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                <h3 class="text-lg font-bold tarmaq-text-primary mb-3">Répartition du budget annuel</h3>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <p class="mb-2"><strong>Investissements (120'000 CHF):</strong> Matériel informatique, infrastructure IA, développement plateforme, identité de marque</p>
+                        <p class="mb-2"><strong>Coûts mensuels (23'000 CHF):</strong> Location, salaires, charges, programme mentors</p>
+                        <p><strong>Coûts ponctuels (1'007'000 CHF):</strong> Apprentissage, événements, voyages, projets ONG, fond acquisition local</p>
+                    </div>
+                    <div>
+                        <p class="mb-2"><strong>Poste principal:</strong> Fond pour acquisition du local (34.78% du budget)</p>
+                        <p class="mb-2"><strong>Salaires:</strong> Équipe opérationnelle (14.61% du budget)</p>
+                        <p><strong>Location:</strong> Local de 150m² à Genève (6.26% du budget)</p>
+                    </div>
+                </div>
+            </div>
+            
             <div class="bg-red-50 p-6 rounded-lg border-l-4" style="border-color: var(--tarmaq-red);">
                 <div class="mb-4">
-                    <h3 class="text-xl font-bold tarmaq-text-primary mb-2">Valorisation : 194'200 CHF (20% du budget total)</h3>
-                    <p class="text-gray-700">L'association Perspectives Jeunesse apporte une contribution significative entièrement sous forme d'apports en nature, équivalant à 20% du budget total du projet.</p>
+                    <h3 class="text-xl font-bold tarmaq-text-primary mb-2">Valorisation : 150'000 CHF (13.0% du budget total)</h3>
+                    <p class="text-gray-700">L'association Perspectives Jeunesse apporte une contribution significative entièrement sous forme d'apports en nature, équivalant à 13.0% du budget total du projet.</p>
                 </div>
                 
                 <div class="grid md:grid-cols-2 gap-6">
@@ -442,19 +470,19 @@
                         <div class="space-y-3 bg-white p-4 rounded-lg">
                             <div class="flex justify-between">
                                 <span>Année 1 (2025)</span>
-                                <span class="font-bold">71'400 CHF</span>
+                                <span class="font-bold">150'000 CHF</span>
                             </div>
                             <div class="flex justify-between">
                                 <span>Année 2 (2026)</span>
-                                <span class="font-bold">61'400 CHF</span>
+                                <span class="font-bold">150'000 CHF</span>
                             </div>
                             <div class="flex justify-between">
                                 <span>Année 3 (2027)</span>
-                                <span class="font-bold">61'400 CHF</span>
+                                <span class="font-bold">150'000 CHF</span>
                             </div>
                             <div class="border-t pt-2 flex justify-between font-bold tarmaq-text-primary">
                                 <span>Total 3 ans</span>
-                                <span>194'200 CHF</span>
+                                <span>450'000 CHF</span>
                             </div>
                         </div>
                     </div>
@@ -470,6 +498,56 @@
             </h2>
             <div style="height: 400px;">
                 <canvas id="evolutionChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Sources de financement détaillées -->
+        <section class="tarmaq-card">
+            <h2 class="text-2xl font-bold tarmaq-text-primary mb-6 flex items-center">
+                <i class="fas fa-handshake mr-3"></i>
+                Sources de financement détaillées
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-blue-800 text-lg mb-4">Financement public (150'000 CHF - 13.0%)</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span>Hospice général</span>
+                            <span class="font-bold">50'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Ville et canton de Genève</span>
+                            <span class="font-bold">50'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Département d'instruction publique</span>
+                            <span class="font-bold">50'000 CHF</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-green-800 text-lg mb-4">Fondations & Entreprises (650'000 CHF - 56.5%)</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span>Fondations privées</span>
+                            <span class="font-bold">400'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Loterie Romande</span>
+                            <span class="font-bold">100'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Entreprises Membres et ONG partenaires</span>
+                            <span class="font-bold">50'000 CHF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Département cohésion sociale</span>
+                            <span class="font-bold">50'000 CHF</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -529,9 +607,9 @@
         new Chart(ctxFinancement, {
             type: 'doughnut',
             data: {
-                labels: ['Financement public (20%)', 'Fondations & Entreprises (60%)', 'Perspectives Jeunesse - Nature (20%)'],
+                labels: ['Financement public (13.0%)', 'Fondations & Entreprises (56.5%)', 'Perspectives Jeunesse - Nature (13.0%)'],
                 datasets: [{
-                    data: [194200, 582600, 194200],
+                    data: [150000, 650000, 150000],
                     backgroundColor: ['#3B82F6', '#10B981', '#E30007'],
                     borderWidth: 3,
                     borderColor: '#fff'
@@ -569,19 +647,19 @@
                 datasets: [
                     {
                         label: 'Financement public',
-                        data: [71400, 61400, 61400],
+                        data: [150000, 150000, 150000],
                         backgroundColor: '#3B82F6',
                         borderRadius: 4
                     },
                     {
                         label: 'Fondations & Entreprises',
-                        data: [214200, 184200, 184200],
+                        data: [650000, 650000, 650000],
                         backgroundColor: '#10B981',
                         borderRadius: 4
                     },
                     {
                         label: 'Perspectives Jeunesse (nature)',
-                        data: [71400, 61400, 61400],
+                        data: [150000, 150000, 150000],
                         backgroundColor: '#E30007',
                         borderRadius: 4
                     }
@@ -634,6 +712,15 @@
                 currentDateElement.textContent = now.toLocaleDateString('fr-FR', options);
             }
         });
+
+        // Mobile menu toggle function
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('hidden');
+            }
+        }
     </script>
 </body>
+</html>
 </html>

@@ -100,6 +100,40 @@ header.scrolled .head{background:rgba(255,255,255,.75);border-bottom-color:var(-
 .btn-grad{background:var(--grad-accent);color:#fff}
 .btn-grad:hover{transform:translateY(-2px);box-shadow:var(--sh-soft)}
 
+/* Header button styles */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.9);
+  color: #2a2a2a;
+  padding: 14px 24px;
+  border-radius: 16px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  border: 1px solid #e8e8ec;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-gradient {
+  background: linear-gradient(140deg, #F4999C, #E30007);
+  color: white;
+  padding: 14px 24px;
+  border-radius: 16px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(227, 0, 7, 0.25);
+}
+
 /* Burger */
 .burger{display:none;border:none;background:transparent;padding:8px;cursor:pointer;flex-direction:column;gap:5px}
 .burger span{width:26px;height:2px;background:var(--ink-2);display:block;transition:transform .2s ease}
@@ -228,44 +262,65 @@ footer{background:#fff;border-top:1px solid var(--stroke)}
 }
       `}</style>
 
-      <header className={scrolled ? 'scrolled' : ''}>
-        <div className="wrap head" role="navigation" aria-label="Navigation principale">
-          <div className="brand">
-            <a href="#" className="logo" aria-label="Aller à l'accueil tarmaq" style={{display:'flex',alignItems:'center',gap:10}}>
-              <img src="src/assets/logo.png" alt="tarmaq" style={{width:'35%',height:'45%'}} />
-            </a>
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-stroke/50">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <div className="flex items-center gap-4">
+              <img src="src/assets/logo.png" alt="tarmaq" className="h-12 w-auto" />
+            </div>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-8">
+              <a href="index.html" className="font-semibold text-ink-2 hover:text-brand transition-colors">Accueil</a>
+              <a href="tarmaq-adémie/index.html" className="font-semibold text-brand">Cours Libre</a>
+              <a href="tarmaq_version_html_fondateur.html" className="font-semibold text-ink-2 hover:text-brand transition-colors">Projet</a>
+              <a href="Budget.html" className="font-semibold text-ink-2 hover:text-brand transition-colors">Budget</a>
+              <a href="tarmaq_interactive_mindmap.html" className="font-semibold text-ink-2 hover:text-brand transition-colors">Mindmap</a>
+            </nav>
+
+            {/* CTA Buttons */}
+            <div className="hidden lg:flex items-center gap-4">
+              <button className="btn-secondary">Appel à soutien</button>
+              <button className="btn-gradient">Faire un don</button>
+            </div>
+
+            {/* View Switcher and Mobile Menu Button */}
+            <div className="flex items-center gap-2">
+              {/* View Switcher Button */}
+              <button id="viewSwitcher" className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-ink-2" title="Passer à la vue mobile">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </button>
+              {/* Mobile Menu Button */}
+              <button className="lg:hidden p-2" onClick={()=>setMenuOpen(o=>!o)}>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+              </button>
+            </div>
           </div>
-          <nav className="nav-links" aria-label="Liens">
-            <a href="#programmes">Kesako</a>
-            <a href="#experiences">Expériences</a>
-            <a href="#communaute">Communauté</a>
-            <a href="#agenda">Agenda</a>
-            <a href="#partenaires">Partenaires</a>
-            <a className="btn btn-ghost" href="#soutien">Appel à soutien</a>
-            <a className="btn btn-grad" href="#don">Faire un don</a>
-          </nav>
-          <button
-            className="burger"
-            aria-label="Ouvrir le menu"
-            aria-controls="mobileMenu"
-            aria-expanded={menuOpen ? 'true' : 'false'}
-            onClick={()=>setMenuOpen(o=>!o)}
-          >
-            <span></span><span></span><span></span>
-          </button>
         </div>
-        <div id="mobileMenu" className={`wrap ${menuOpen ? 'open' : ''}`}>
-          {menuOpen && (
-            <>
-              <a href="#programmes" onClick={closeMenu}>Quésaco ?</a>
-              <a href="#communaute" onClick={closeMenu}>Communauté</a>
-              <a href="#agenda" onClick={closeMenu}>Agenda</a>
-              <a href="#partenaires" onClick={closeMenu}>Partenaires</a>
-              <a className="btn btn-ghost" href="#soutien" onClick={closeMenu}>Soumettre un projet</a>
-              <a className="btn btn-grad" href="#don" onClick={closeMenu}>Soutenir tarmaq</a>
-            </>
-          )}
-        </div>
+        
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="lg:hidden bg-white border-t border-stroke">
+            <div className="max-w-7xl mx-auto px-8 py-4">
+              <nav className="flex flex-col space-y-4">
+                <a href="index.html" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Accueil</a>
+                <a href="tarmaq-adémie/index.html" className="font-semibold text-brand py-2">Cours Libre</a>
+                <a href="tarmaq_version_html_fondateur.html" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Projet</a>
+                <a href="Budget.html" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Budget</a>
+                <a href="tarmaq_interactive_mindmap.html" className="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Mindmap</a>
+                <div className="flex flex-col space-y-2 pt-4 border-t border-stroke">
+                  <button className="btn-secondary w-full text-center">Appel à soutien</button>
+                  <button className="btn-gradient w-full text-center">Faire un don</button>
+                </div>
+              </nav>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Backdrop for click-away close (under header z-index) */}

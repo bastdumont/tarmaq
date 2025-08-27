@@ -18,33 +18,33 @@
         font-family: 'Inter', sans-serif;
       }
       .gradient-bg {
-        background: linear-gradient(135deg, #da2f2c 0%, #c52824 100%);
+        background: linear-gradient(135deg, #E30007 0%, #CC0006 100%);
       }
       .tool-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
       .tool-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 20px 40px rgba(227, 0, 7, 0.1);
       }
       .feature-item {
-        border-left: 4px solid #da2f2c;
+        border-left: 4px solid #E30007;
       }
       .stats-card {
-        background: linear-gradient(135deg, #ff9d9b 0%, #da2f2c 100%);
+        background: linear-gradient(135deg, #F4999C 0%, #E30007 100%);
       }
       .learning-card {
-        background: linear-gradient(135deg, #ffe3e2 0%, #ffd2d1 100%);
+        background: linear-gradient(135deg, #FCEE66 0%, #F4999C 100%);
         color: #2a2a2a;
       }
       .learning-card h3 {
-        color: #da2f2c;
+        color: #E30007;
       }
       .learning-card p {
         color: #6f6f78;
       }
       .btn-primary {
-        background: #da2f2c;
+        background: #E30007;
         color: white;
         border: none;
         padding: 12px 18px;
@@ -55,34 +55,18 @@
         transition: background 0.2s ease;
       }
       .btn-primary:hover {
-        background: #c52824;
-      }
-      .btn-secondary {
-        background: rgba(255, 255, 255, 0.6);
-        color: #2a2a2a;
-        border: 1px solid #e8e8ec;
-        padding: 12px 18px;
-        border-radius: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        display: inline-block;
-        transition: all 0.2s ease;
-      }
-      .btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.8);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+        background: #CC0006;
       }
       .card {
         background: #ffffff;
         border: 1px solid #e8e8ec;
         border-radius: 22px;
-        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 6px 24px rgba(227, 0, 7, 0.06);
       }
       .card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
-        border-color: #e1e1e8;
+        box-shadow: 0 16px 40px rgba(227, 0, 7, 0.1);
+        border-color: #E30007;
       }
       .section-title {
         color: #2a2a2a;
@@ -91,12 +75,12 @@
         color: #6f6f78;
       }
       .text-brand {
-        color: #da2f2c;
+        color: #E30007;
       }
       .bg-brand-light {
         background: #fff1f1;
-        border: 1px solid #f4c1c0;
-        color: #7a1210;
+        border: 1px solid #F4999C;
+        color: #E30007;
       }
       .bg-surface {
         background: #fcfcfd;
@@ -105,18 +89,130 @@
         color: #6f6f78;
       }
       .border-brand {
-        border-color: #da2f2c;
+        border-color: #E30007;
       }
       .shadow-soft {
-        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 6px 24px rgba(227, 0, 7, 0.06);
       }
       .shadow-elev {
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 16px 40px rgba(227, 0, 7, 0.1);
+      }
+
+      /* Header styles */
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.9);
+        color: #2a2a2a;
+        padding: 14px 24px;
+        border-radius: 16px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        border: 1px solid #e8e8ec;
+        cursor: pointer;
+      }
+
+      .btn-secondary:hover {
+        background: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-gradient {
+        background: linear-gradient(140deg, #F4999C, #E30007);
+        color: white;
+        padding: 14px 24px;
+        border-radius: 16px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-gradient:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(227, 0, 7, 0.25);
+      }
+
+      /* Navigation styles */
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-dropdown {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+      }
+
+      .nav-item:hover .nav-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
       }
     </style>
   </head>
   <body class="bg-surface text-ink" style="background: #fcfcfd; color: #161616">
     <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-stroke/50">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-4">
+                    <img src="../src/assets/logo.png" alt="tarmaq" class="h-12 w-auto" />
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center gap-8">
+                    <a href="../index.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Accueil</a>
+                    <a href="index.html" class="font-semibold text-brand">Cours Libre</a>
+                    <a href="../tarmaq_version_html_fondateur.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Projet</a>
+                    <a href="../Budget.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Budget</a>
+                    <a href="../tarmaq_interactive_mindmap.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Mindmap</a>
+                </nav>
+
+                <!-- CTA Buttons -->
+                <div class="hidden lg:flex items-center gap-4">
+                    <button class="btn-secondary">Appel à soutien</button>
+                    <button class="btn-gradient">Faire un don</button>
+                </div>
+
+                <!-- View Switcher and Mobile Menu Button -->
+                <div class="flex items-center gap-2">
+                    <!-- View Switcher Button -->
+                    <button id="viewSwitcher" class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-ink-2" title="Passer à la vue mobile">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h16l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </button>
+                    <!-- Mobile Menu Button -->
+                    <button class="lg:hidden p-2" onclick="toggleMobileMenu()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="lg:hidden bg-white border-t border-stroke hidden">
+            <div class="max-w-7xl mx-auto px-8 py-4">
+                <nav class="flex flex-col space-y-4">
+                    <a href="../index.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Accueil</a>
+                    <a href="index.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Cours Libre</a>
+                    <a href="../tarmaq_version_html_fondateur.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Projet</a>
+                    <a href="../Budget.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Budget</a>
+                    <a href="../tarmaq_interactive_mindmap.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Mindmap</a>
+                    <div class="flex flex-col space-y-2 pt-4 border-t border-stroke">
+                        <button class="btn-secondary w-full text-center">Appel à soutien</button>
+                        <button class="btn-gradient w-full text-center">Faire un don</button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
     <header class="gradient-bg text-white py-12">
       <div class="container mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">
@@ -184,7 +280,7 @@
           <div
             class="bg-gradient-to-br from-FFE3E2 to-FFD2D1 p-6 rounded-lg text-center"
             style="
-              background: linear-gradient(135deg, #ffe3e2 0%, #ffd2d1 100%);
+              background: linear-gradient(135deg, #FCEE66 0%, #F4999C 100%);
               color: #2a2a2a;
             "
           >
@@ -566,10 +662,10 @@
           <div
             class="text-center p-6 rounded-lg"
             style="
-              background: linear-gradient(135deg, #fff1f1 0%, #f4c1c0 100%);
+              background: linear-gradient(135deg, #fff1f1 0%, #F4999C 100%);
             "
           >
-            <i class="fas fa-link text-3xl mb-4" style="color: #da2f2c"></i>
+            <i class="fas fa-link text-3xl mb-4" style="color: #E30007"></i>
             <h3 class="font-bold text-lg mb-2" style="color: #2a2a2a">
               Écosystème Intégré
             </h3>
@@ -581,10 +677,10 @@
           <div
             class="text-center p-6 rounded-lg"
             style="
-              background: linear-gradient(135deg, #ffe3e2 0%, #ffd2d1 100%);
+              background: linear-gradient(135deg, #FCEE66 0%, #F4999C 100%);
             "
           >
-            <i class="fas fa-clock text-3xl mb-4" style="color: #da2f2c"></i>
+            <i class="fas fa-clock text-3xl mb-4" style="color: #E30007"></i>
             <h3 class="font-bold text-lg mb-2" style="color: #2a2a2a">
               Gain de Temps
             </h3>
@@ -596,10 +692,10 @@
           <div
             class="text-center p-6 rounded-lg"
             style="
-              background: linear-gradient(135deg, #fff6f6 0%, #f4c1c0 100%);
+              background: linear-gradient(135deg, #fff6f6 0%, #F4999C 100%);
             "
           >
-            <i class="fas fa-cogs text-3xl mb-4" style="color: #da2f2c"></i>
+            <i class="fas fa-cogs text-3xl mb-4" style="color: #E30007"></i>
             <h3 class="font-bold text-lg mb-2" style="color: #2a2a2a">
               Automatisation Intelligente
             </h3>
@@ -611,14 +707,14 @@
           <div
             class="text-center p-6 rounded-lg"
             style="
-              background: linear-gradient(135deg, #fff1f1 0%, #ffe3e2 100%);
+              background: linear-gradient(135deg, #fff1f1 0%, #FCEE66 100%);
             "
           >
             <i
               class="fas fa-graduation-cap text-3xl mb-4"
-              style="color: #da2f2c"
+              style="color: #E30007"
             ></i>
-            <h3 class="font-bold text-lg mb-2" style="color: #2a2a2a">
+            <h3 class="text-xl font-bold mb-2" style="color: #2a2a2a">
               Courbe d'Apprentissage
             </h3>
             <p class="text-sm" style="color: #6f6f78">
@@ -631,7 +727,7 @@
         <div
           class="p-8 rounded-lg"
           style="
-            background: linear-gradient(135deg, #da2f2c 0%, #c52824 100%);
+            background: linear-gradient(135deg, #E30007 0%, #CC0006 100%);
             color: white;
           "
         >
@@ -642,7 +738,7 @@
             <div class="flex flex-col items-center">
               <div
                 class="w-12 h-12 rounded-full flex items-center justify-center font-bold mb-2"
-                style="background: white; color: #da2f2c"
+                style="background: white; color: #E30007"
               >
                 1
               </div>
@@ -653,7 +749,7 @@
             <div class="flex flex-col items-center">
               <div
                 class="w-12 h-12 rounded-full flex items-center justify-center font-bold mb-2"
-                style="background: white; color: #da2f2c"
+                style="background: white; color: #E30007"
               >
                 2
               </div>
@@ -664,7 +760,7 @@
             <div class="flex flex-col items-center">
               <div
                 class="w-12 h-12 rounded-full flex items-center justify-center font-bold mb-2"
-                style="background: white; color: #da2f2c"
+                style="background: white; color: #E30007"
               >
                 3
               </div>
@@ -675,7 +771,7 @@
             <div class="flex flex-col items-center">
               <div
                 class="w-12 h-12 rounded-full flex items-center justify-center font-bold mb-2"
-                style="background: white; color: #da2f2c"
+                style="background: white; color: #E30007"
               >
                 4
               </div>
@@ -686,7 +782,7 @@
             <div class="flex flex-col items-center">
               <div
                 class="w-12 h-12 rounded-full flex items-center justify-center font-bold mb-2"
-                style="background: white; color: #da2f2c"
+                style="background: white; color: #E30007"
               >
                 5
               </div>
@@ -785,7 +881,7 @@
               <div
                 class="p-4 rounded-lg"
                 style="
-                  background: linear-gradient(135deg, #da2f2c 0%, #c52824 100%);
+                  background: linear-gradient(135deg, #E30007 0%, #CC0006 100%);
                   color: white;
                 "
               >
@@ -832,25 +928,25 @@
           </h3>
           <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
             <div class="p-3 rounded" style="background: #fff1f1">
-              <div class="text-2xl font-bold" style="color: #da2f2c">
+              <div class="text-2xl font-bold" style="color: #E30007">
                 54,598
               </div>
               <div class="text-sm" style="color: #6f6f78">Vues</div>
             </div>
-            <div class="p-3 rounded" style="background: #ffe3e2">
-              <div class="text-2xl font-bold" style="color: #da2f2c">1,258</div>
+            <div class="p-3 rounded" style="background: #FCEE66">
+              <div class="text-2xl font-bold" style="color: #E30007">1,258</div>
               <div class="text-sm" style="color: #6f6f78">Likes</div>
             </div>
             <div class="p-3 rounded" style="background: #fff6f6">
-              <div class="text-2xl font-bold" style="color: #da2f2c">33</div>
+              <div class="text-2xl font-bold" style="color: #E30007">33</div>
               <div class="text-sm" style="color: #6f6f78">Commentaires</div>
             </div>
-            <div class="p-3 rounded" style="background: #fff1f1">
-              <div class="text-2xl font-bold" style="color: #da2f2c">14:10</div>
+            <div class="p-3 rounded" style="background: #F4999C">
+              <div class="text-2xl font-bold" style="color: #E30007">14:10</div>
               <div class="text-sm" style="color: #6f6f78">Durée</div>
             </div>
-            <div class="p-3 rounded" style="background: #ffe3e2">
-              <div class="text-2xl font-bold" style="color: #da2f2c">
+            <div class="p-3 rounded" style="background: #FCEE66">
+              <div class="text-2xl font-bold" style="color: #E30007">
                 21/11/24
               </div>
               <div class="text-sm" style="color: #6f6f78">Publication</div>
@@ -861,7 +957,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="gradient-bg text-white py-8">
+    <footer class="gradient-bg text-white py-8" style="background: linear-gradient(135deg, #E30007 0%, #CC0006 100%);">
       <div class="container mx-auto px-6 text-center">
         <div class="mb-6">
           <h3 class="text-xl font-bold mb-2">Prochaines Étapes</h3>
@@ -907,6 +1003,16 @@
       </div>
     </footer>
 
+    <!-- Mobile menu toggle function -->
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('hidden');
+            }
+        }
+    </script>
+    
     <script
       defer
       src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"

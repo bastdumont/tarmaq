@@ -1,6 +1,67 @@
 <!DOCTYPE html>
 <!-- saved from url=(0052)https://www.genspark.ai/api/page_private?id=xgtzchbp -->
-<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="fr">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-stroke/50">
+      <div class="max-w-7xl mx-auto px-8">
+          <div class="flex items-center justify-between h-20">
+              <!-- Logo -->
+              <div class="flex items-center gap-4">
+                  <img src="../src/assets/logo.png" alt="tarmaq" class="h-12 w-auto" />
+              </div>
+
+              <!-- Desktop Navigation -->
+              <nav class="hidden lg:flex items-center gap-8">
+                  <a href="../index.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Accueil</a>
+                  <a href="index.html" class="font-semibold text-brand">Cours Libre</a>
+                  <a href="../tarmaq_version_html_fondateur.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Projet</a>
+                  <a href="../Budget.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Budget</a>
+                  <a href="../tarmaq_interactive_mindmap.html" class="font-semibold text-ink-2 hover:text-brand transition-colors">Mindmap</a>
+              </nav>
+
+              <!-- CTA Buttons -->
+              <div class="hidden lg:flex items-center gap-4">
+                  <button class="btn-secondary">Appel à soutien</button>
+                  <button class="btn-gradient">Faire un don</button>
+              </div>
+
+              <!-- View Switcher and Mobile Menu Button -->
+              <div class="flex items-center gap-2">
+                  <!-- View Switcher Button -->
+                  <button id="viewSwitcher" class="p-2 hover:bg-gray-100 rounded-lg transition-colors text-ink-2" title="Passer à la vue mobile">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                      </svg>
+                  </button>
+                  <!-- Mobile Menu Button -->
+                  <button class="lg:hidden p-2" onclick="toggleMobileMenu()">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                      </svg>
+                  </button>
+              </div>
+          </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="lg:hidden bg-white border-t border-stroke hidden">
+          <div class="max-w-7xl mx-auto px-8 py-4">
+              <nav class="flex flex-col space-y-4">
+                  <a href="../index.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Accueil</a>
+                  <a href="index.html" class="font-semibold text-brand py-2">Cours Libre</a>
+                  <a href="../tarmaq_version_html_fondateur.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Projet</a>
+                  <a href="../Budget.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Budget</a>
+                  <a href="../tarmaq_interactive_mindmap.html" class="font-semibold text-ink-2 hover:text-brand transition-colors py-2">Mindmap</a>
+                  <div class="flex flex-col space-y-2 pt-4 border-t border-stroke">
+                      <button class="btn-secondary w-full text-center">Appel à soutien</button>
+                      <button class="btn-gradient w-full text-center">Faire un don</button>
+                  </div>
+              </nav>
+          </div>
+      </div>
+  </header>
+
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analyse Vidéo - Claude Code + Playwright MCP</title>
@@ -8,11 +69,63 @@
     <link rel="stylesheet" href="./Analyse Vidéo - Claude Code + Playwright MCP_files/all.min.css">
     <style>
         .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #E30007 0%, #CC0006 100%);
         }
         .card-hover:hover {
             transform: translateY(-2px);
             transition: transform 0.2s ease-in-out;
+        }
+
+        /* Header styles */
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2a2a2a;
+            padding: 14px 24px;
+            border-radius: 16px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 1px solid #e8e8ec;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(140deg, #F4999C, #E30007);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 16px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(227, 0, 7, 0.25);
+        }
+
+        /* Navigation styles */
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
     </style>
 <style>
@@ -539,4 +652,14 @@
     </script>
     
     <script id="html_notice_dialog_script" src="./Analyse Vidéo - Claude Code + Playwright MCP_files/notice_dialog.js"></script>
+    <!-- Mobile menu toggle function -->
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('hidden');
+            }
+        }
+    </script>
+    
     <div id="genspark-float-bar" data-v-app=""></div><div id="genspark-float-bar"></div><div style="position: relative;" id="zp-10-1-4-licdn-root-apollo_everywhere" data-has-tooltip-listener=""><div class="zp"><div></div></div><div class="x_BJJxg" data-disable-focus-trap="true"></div><div class="x_KfhZL" aria-live="polite" aria-atomic="true" data-disable-focus-trap="true"></div><span data-name="tooltip-listener" aria-hidden="true" style="display: none;"></span> </div><div class="extension-opener-icon" style="z-index: 2147483647; position: relative;"><div class="apolloio-css-vars-reset x_EFRzP x_I3MOf" dir="ltr"><div class="x_SrTzk x_pnPas zp-10-1-4-zp-fixed" data-cy="apollo-opener-icon-new" style="right: 0px; top: 18vh; transition: none;"><input type="button" class="x_Q33Is apollo-opener-icon x_sCReY x_keW7D"><img draggable="false" alt="Apollo" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIxLjQ2NTUgNS4wNzE0N0wyMS40NzAzIDE1Ljk4NjNDMjEuNDcxIDE3LjcxMDYgMTkuNjM2NCAxOC44MTYyIDE4LjExMjEgMTguMDFMNy4xNjk4IDEyLjIyMjZDOC4wMDQzMyAxMC44NDkyIDkuMDUzNzcgOS42MjEwOSAxMC4yNzA0IDguNTgzMzJMMTguODUyNCAxNi41MTQ4QzE5LjMwNzEgMTYuOTM1IDIwLjAyNCAxNi40Nzk0IDE5LjgzNjcgMTUuODg5NEwxNi41MDg1IDUuNDA5MDJDMTcuNjI4OCA1LjE0MjEgMTguNzk3MiA1IDE5Ljk5ODkgNUMyMC40OTM5IDUgMjAuOTgyOSA1LjAyNDYgMjEuNDY1NSA1LjA3MTQ3WiIgZmlsbD0iI0VCRjIxMiIvPgo8cGF0aCBkPSJNMTguNDk2MyAzNC45MjUyTDE4LjQ5MTUgMjQuMDY1NEMxOC40OTA4IDIyLjM0MSAyMC4zMjU0IDIxLjIzNTUgMjEuODQ5NyAyMi4wNDE3TDMyLjc5NiAyNy44MzEyQzMxLjk1NTggMjkuMjAxIDMwLjkwMTYgMzAuNDI1MSAyOS42ODAxIDMxLjQ1ODFMMjEuMTA5NCAyMy41MzY5QzIwLjY1NDcgMjMuMTE2NyAxOS45Mzc4IDIzLjU3MjMgMjAuMTI1MSAyNC4xNjIzTDIzLjQ0MDcgMzQuNjAzMUMyMi4zMzYxIDM0Ljg2MjQgMjEuMTg0NCAzNSAyMC4wMDA1IDM1QzE5LjQ5MjkgMzUgMTguOTkwOSAzNC45NzQ2IDE4LjQ5NjMgMzQuOTI1MloiIGZpbGw9IiNFQkYyMTIiLz4KPHBhdGggZD0iTTIzLjQ5MTggMTguODk4MUwzMS40Mzk3IDEwLjI5OTFDMzAuNDAyNyA5LjA3NzY3IDI5LjE3NDQgOC4wMjM5NSAyNy44IDcuMTg1NjNMMjEuOTk2NCAxOC4xNTc4QzIxLjE5MDEgMTkuNjgyIDIyLjI5NTkgMjEuNTE2NyAyNC4wMjAzIDIxLjUxNTlMMzQuOTI0NSAyMS41MTExQzM0Ljk3NDIgMjEuMDE0MSAzNSAyMC41MTAxIDM1IDIwQzM1IDE4LjgxMzggMzQuODYxNyAxNy42NiAzNC42MDE0IDE2LjU1MzNMMjQuMTE3MiAxOS44ODIzQzIzLjUyNzIgMjAuMDY5NiAyMy4wNzE2IDE5LjM1MjggMjMuNDkxOCAxOC44OTgxWiIgZmlsbD0iI0VCRjIxMiIvPgo8cGF0aCBkPSJNNS4wNzA4MSAxOC41NDA2TDE1Ljk0MiAxOC41MzU4QzE3LjY2NjYgMTguNTM1MSAxOC43NzIyIDIwLjM2OTYgMTcuOTY1OSAyMS44OTM5TDEyLjE5MjIgMzIuODA5NUMxMC44MjMxIDMxLjk3MzIgOS41OTg5OCAzMC45MjMzIDguNTY1MTcgMjkuNzA2N0wxNi40NzA3IDIxLjE1MzZDMTYuODkwOSAyMC42OTg5IDE2LjQzNTEgMTkuOTgyIDE1Ljg0NTEgMjAuMTY5NEw1LjQwNzU0IDIzLjQ4MzZDNS4xNDE2MSAyMi4zNjU3IDUgMjEuMTk5NSA1IDIwQzUgMTkuNTA3NSA1LjAyNDQzIDE5LjAyMDcgNS4wNzA4MSAxOC41NDA2WiIgZmlsbD0iI0VCRjIxMiIvPgo8L3N2Zz4K" class="x_IFkFs x_Zjwlo x_MG3Du"><div class="x_r94Gn x_plPIx" data-cy="draggable-extension-icon"></div></div></div></div></body></html>
